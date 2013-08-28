@@ -8,7 +8,7 @@ applicative-order -> evaluate the arguments and then apply
 Conditionals
 ------------
 
-.. block:: lisp
+.. code-block:: lisp
 
     (cond (<p1> <e1>)
           (<p2> <e2>)
