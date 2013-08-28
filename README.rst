@@ -1,5 +1,8 @@
+NOTES
+=====
+
 Planning on taking my notes and putting them here
-=================================================
+-------------------------------------------------
 
 - Previously I used Sphinx but I Think it is a bit overkill sometimes, it's
   nice to update and regenerate only RST documents I have changed already.
