@@ -86,7 +86,7 @@ Exercise 1.4
     (define (a-plus-abs-b a b)
         ((if (> b 0) + -) a b))
 
-The easiest way for me to describe the behavior of the list function is to
+The easiest way for me to describe the behavior of the lisp function is to
 translate it into python, so here is the same function written in python.
 
 .. code-block:: python
