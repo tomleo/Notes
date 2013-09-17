@@ -164,4 +164,20 @@ Square Roots by Newton’s Method
 
     (sqrt 4)
 
+Combinations
+============
+
+- Evaluate the subexpressions of the combination.
+- Apply the procedure that is the value of the leftmost subexpression (the
+  operator) to the arguments that are the values of the other subexpressions
+  (the operands). The evaluation rule is recursive in nature.
+
+Special Forms
+=============
+
+Each special form has its own evaluation rule.
+(define x 3) is not a combination but a special form.
+
+
+
 
