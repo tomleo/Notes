@@ -179,4 +179,13 @@ following
             model = DogToys
             exclude = ('toys')
 
-    
+Form Wizard
+-----------
+
+The form wizard will return a 404 after a schema migration due to what is
+cached.
+
+Solution::
+
+    append the form wizard url with /?reset
+
