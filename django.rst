@@ -65,6 +65,43 @@ The reason these tests fail is because Django caches the result of the queryset
 so while the post request will change the value `species` for each pet, the
 assertion is comparing the older cached result.
 
+Post Requests
+-------------
+
+Generally you redirect after a successful POST request in your view, so how
+should you test this?
+
+Method
+------
+
+By adding `folllow=True` to your post request the client will add an attribute
+redirect_chain to the response object::
+
+    >> resp.redirect_chain
+    [('http://testserver/submission/complete/', 302)]
+
+The tuple contains the URL the view will redirect to and the status code which
+should be a 302 redirect.
+
+.. code-block:: python
+    self.client.post(/species-transformation/, {'pet_id': i, 'species': 'Cat'})
+    post_resp = client.post(post_url, payload, follow=True)
+    self.assertEqual(post_resp.status_code, 200)
+    #Build Absolute URL
+    request = post_resp.request
+    site_url = '%s://%s' % (request.get('wsgi.url_scheme'), request.get('SERVERNAME'))
+    self.assertEqual(post_resp.redirect_chain[0][0], '{0}{1}'.format(site_url, '/species-transformation/complete/')
+    self.assertEqual(post_resp.redirect_chain[0][1], 302)
+
+The Shortcut
+------------
+
+.. code-block:: python
+
+    post_resp = client.post(post_url, payload)
+    self.assertRedirects(post_resp, '/species-transformation/complete/')
+
+
 Django ORM
 ==========
 
