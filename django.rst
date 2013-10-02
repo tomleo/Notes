@@ -21,8 +21,6 @@ traceback not at the end. _[1]
 .. [1]: http://stackoverflow.com/a/8797685/465270
 
 
-
-
 Test Fixtures
 -------------
 
@@ -33,3 +31,9 @@ If you’ve got them in your code, burn them.
 16:30 - 23:30
 http://carljm.github.io/django-testing-slides/#22 to
 http://carljm.github.io/django-testing-slides/#27
+
+Forms
+-----
+
+Figure out how to set all Django form fields via JS
+Figure out how to create forms using form field variables
