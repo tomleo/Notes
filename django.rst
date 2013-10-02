@@ -2,7 +2,8 @@
 Django Notes
 ============
 
-.. contents:: :depth: 2
+.. contents:: Topics
+    :depth: 2
 
 Debugging
 =========
@@ -217,6 +218,26 @@ iterate over large dataset example
     from itertools import chain
         for pet in chain([pet_one], pet_set):
             print(pet.name)
+
+
+django.db.models.loading
+------------------------
+
+get_model(app_label, model_name) #Returns a model class
+get_app(app_label) #Returns applications models module
+
+.. code-block:: python
+
+    >> from django.db.models.loading import get_model
+    >> get_model('auth', 'user')
+    django.contrib.auth.models.User
+
+    >> from django.db.models.loading import get_app
+    >> get_app('auth')
+    <module 'django.contrib.auth.models' from '/usr/local/lib/python2.7/site-packages/django/contrib/auth/models.pyc'>
+
+    >> from django.db.models.loading import get_models
+    >> get_models()
 
 
 Forms
