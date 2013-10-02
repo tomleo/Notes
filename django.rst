@@ -2,6 +2,8 @@
 Django Notes
 ============
 
+.. contents:: :depth: 2
+
 Debugging
 =========
 
