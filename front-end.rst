@@ -57,6 +57,13 @@ mixins
     block
         +bubbles($name)
 
+Bootstrap 3
+===========
+
+xs = phone
+sm = tablets
+md = desktops
+lg = large desktops
 
 .. [1] http://alistapart.com/article/a-pixel-identity-crisis
 .. [2] http://developer.android.com/guide/practices/screens_support.html#density-independence

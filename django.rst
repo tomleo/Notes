@@ -2,6 +2,9 @@
 Django Notes
 ============
 
+.. contents:: Topics
+    :depth: 2
+
 Debugging
 =========
 
@@ -217,8 +220,32 @@ iterate over large dataset example
             print(pet.name)
 
 
+django.db.models.loading
+------------------------
+
+get_model(app_label, model_name) #Returns a model class
+get_app(app_label) #Returns applications models module
+
+.. code-block:: python
+
+    >> from django.db.models.loading import get_model
+    >> get_model('auth', 'user')
+    django.contrib.auth.models.User
+
+    >> from django.db.models.loading import get_app
+    >> get_app('auth')
+    <module 'django.contrib.auth.models' from '/usr/local/lib/python2.7/site-packages/django/contrib/auth/models.pyc'>
+
+    >> from django.db.models.loading import get_models
+    >> get_models()
+
+
 Forms
 =====
+
+Figure out how to set all Django form fields via JS
+Figure out how to create forms using form field variables
+
 
 Get Form Field Id
 -----------------
