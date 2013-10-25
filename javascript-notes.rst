@@ -153,6 +153,14 @@ constructor.
     helloWorld.constructor("Hello");
     helloWorld.get();
 
+
+Nodejs
+------
+
+Node virtual machine
+https://github.com/creationix/nvm
+
+
 Left off at 15:00 [1]_
 
 .. [1] http://www.objectplayground.com/

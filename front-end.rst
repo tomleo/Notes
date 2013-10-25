@@ -4,6 +4,9 @@ Layout and Grids
 http://susy.oddbird.net/
 http://breakpoint-sass.com/
 
+visibility: hidden
+    hides the element, but it still takes up space in the layout.
+
 Selectors
 =========
 
@@ -11,6 +14,11 @@ Adjacent & General sibling combinator
 -------------------------------------
 
 http://cdpn.io/zCGnc
+
+Not Psudoselector
+-----------------
+
+http://cdpn.io/Ebdav
 
 Dimensions
 ==========
@@ -32,6 +40,40 @@ width: width of the viewport
 
 If you use em's to represent dimensions then scaling dimensions based on a
 devices specs is as simple as changing the base font-size.
+
+CSS3
+====
+
+transform
+---------
+transform: skew(20deg) scale(1.5); }
+transform: rotateX(50deg) scale(2) rotateZ(20deg);
+
+transition
+----------
+element { transition: property, property time delay; }
+
+animation
+---------
+@keyframes whoosh {
+  0% { transform: scale(0.5) translate(0,0); }
+  50% { transform: scale(2)  translate(50%,0);  }
+  100% {transform: scale(0.5) translate(100%,0)}
+}
+#animate {animation: whoosh 3s infinite alternate linear;}
+
+flexbox
+-------
+
+canvas
+======
+
+irregular shape rollover
+------------------------
+
+https://github.com/codepo8/irregular-shape-rollover
+
+
 
 SASS
 ====

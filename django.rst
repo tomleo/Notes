@@ -21,6 +21,14 @@ Solution::
 It should also be noted that the problem can sometimes be in the middle of the
 traceback not at the end. [1]_
 
+Delete Session Data
+-------------------
+
+Solution::
+    
+    from django.contrib.sessions.models import Session
+    Session.objects.all().delete()
+
 
 Testing
 =======
