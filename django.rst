@@ -8,6 +8,42 @@ Django Notes
 Debugging
 =========
 
+Unknown fields error in model form
+----------------------------------
+
+.. code-block:: python
+
+    #models.py
+    class Bacon(models.model):
+        brand = models.CharField(max_length=64)
+        date_created = models.DateTimeField(blank=True, null=True, auto_now_add=True)
+        last_modified = models.DateTimeField(blank=True, null=True, auto_now=True)
+
+    #forms.py
+    class EditBacon(models.model):
+        class Meta:
+            model = Bacon
+            fields = ('brand', 'date_created', 'last_modified')
+
+When you attempt to `GET` a view you will get the following error::
+
+    Unknown field(s) (date_created, last_modified) specified for Bacon
+
+Why is this? I belive it has to do with `auto_now` and `auto_now_add` fields.
+TODO: what happends if I move the timestamp functionality to the save() method?
+TODO: what happends if I use exclude instead of include
+TODO: what happends if I do not explitly define which fields to show (then
+which fields show up?)
+
+Remove stail .pyc files
+-----------------------
+
+In the base directory of your django project::
+
+    find ./ -name \*.pyc -ls
+    find ./ -name \*.pyc -exec rm {} \;
+    find ./ -name \*.pyc -ls
+
 Error: cannot import name <Name>
 --------------------------------
 

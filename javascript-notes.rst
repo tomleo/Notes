@@ -163,6 +163,53 @@ https://github.com/creationix/nvm
 
 Left off at 15:00 [1]_
 
-.. [1] http://www.objectplayground.com/
 
+Arrays
+------
+
+.. code:: javascript
+
+    var x = [1,2,3,]; //ERROR
+    var y = {'a': 1, 'b': 2, 'c': 3,}; //ERROR
+
+If, when defining an array or an object, you leave a trailing comma after the
+last item in your collection, IE will fail to parse your javascript file:
+
+Design Patterns
+===============
+
+Shifting of classes
+-------------------
+
+If you are going to be adding/removing classes of an element you should cache
+them.
+
+.. code:: javascript
+
+    var navright = document.querySelector('#right');
+    var navleft = document.querySelector('#left');
+    var navup = document.querySelector('#up');
+    var navdown = document.querySelector('#down');
+
+Furthermore if you are going to be adding a class to indicate some styling
+state of an element you should do the following [2]_
+
+.. code:: javascript
+
+    var current = null;
+    document.body.addEventListener('click', function(ev) {
+        if (ev.target.tagName === 'BUTTON') {
+            if (current) {
+                current.classList.remove('focus');
+            }
+            current = ev.target;
+            current.classList.add('focus');
+        }
+    }, false);
+
+
+
+
+.. [1] http://www.objectplayground.com/
+.. [2] http://jsfiddle.net/codepo8/cb7pG/3/light/
 
