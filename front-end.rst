@@ -7,6 +7,11 @@ http://breakpoint-sass.com/
 visibility: hidden
     hides the element, but it still takes up space in the layout.
 
+Typography
+----------
+
+http://type-scale.com/
+
 Selectors
 =========
 
@@ -64,6 +69,8 @@ animation
 
 flexbox
 -------
+
+http://www.sketchingwithcss.com/samplechapter/cheatsheet.html
 
 canvas
 ======
