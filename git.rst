@@ -70,7 +70,7 @@ Figure out if a branch has been merged
 
 You can get the SHA1 of the commit where two branches "branched" from
 eachother. Then you can view the commit for further information about if that
-was a merge or not::
+was a merge or not [5]_::
 
     git merge-base origin/feature_branch origin/develop
     > a12a3fcc2bf96f08d8e3c9caee0e98343b79e17d
@@ -85,8 +85,17 @@ was a merge or not::
     >
     >    <Commit Message goes here>
 
+Apply a patch
+-------------
+
+If the patch fails to apply you can merge the patch in via a 3-way merge if you provide the -3
+option::
+
+    git am -3 --signoff < new_stuff.patch
+
 
 .. [1] http://stackoverflow.com/a/4218823/465270
 .. [2] https://help.github.com/articles/changing-a-remote-s-url
 .. [3] http://stackoverflow.com/a/1895095
 .. [4] Forgot to record the link
+.. [5] http://stackoverflow.com/a/1842964/465270

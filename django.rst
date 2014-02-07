@@ -35,8 +35,8 @@ TODO: what happends if I use exclude instead of include
 TODO: what happends if I do not explitly define which fields to show (then
 which fields show up?)
 
-Remove stail .pyc files
------------------------
+Remove static .pyc files
+------------------------
 
 In the base directory of your django project::
 
@@ -343,6 +343,23 @@ following
             model = DogToys
             exclude = ('toys')
 
+Model Mixins
+------------
+
+Lets say you want to associate a score with your dog toy, this can be achived
+like this
+
+.. code-block:: python
+
+    class Score(models.Model):
+        score = models.PositiveIntegerField()
+        dog = models.ForeignKey(Dog, help_text="The dog's score")
+
+    class DogToy(Score):
+        name = models.CharField(max_length=60)
+
+
+
 Form Wizard
 -----------
 
@@ -380,6 +397,8 @@ To fix this add the empty_label=None option to the field.
         def __init__(self, *args, **kwargs):
             super(BaconTypesForm, self).__init__(*args, **kwargs)
             self.fields['bacon_type'].empty_label = None
+
+    **
                 
 
 .. [1] http://stackoverflow.com/a/8797685/465270

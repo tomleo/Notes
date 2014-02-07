@@ -1,5 +1,76 @@
 use strict mode in javascript
 
+Type
+----
+
+typeof will always return "object" for native non callable objects.
+
+.. code:: javascript
+
+    >> [typeof null, null instanceof Object]
+    ["object", false]
+
+the + operator has higher precedence than the ternary one
+
+.. code:: javascript
+
+    >> var val = 'smtg';
+    >> console.log('Value is ' + (val === 'smtg') ? 'Something' : 'Nothing');
+    Something 
+
+The + sign concatenates strings, the - sign causes a type cast
+
+.. code:: javascript
+
+    >> '5' + 3
+    "53"
+    >> '5' - 3
+    2
+
+Scope
+-----
+
+The var declaration is hoisted to the function scope, but the initialization is not.
+
+.. code:: javascript
+
+    var name = 'World!';
+    (function () {
+        if (typeof name === 'undefined') {
+            var name = 'Jack';
+            console.log('Goodbye ' + name);
+        } else {
+            console.log('Hello ' + name);
+        }
+    })();
+    Goodbye Jack
+
+Switch Statement
+----------------
+
+switch uses === internally and new String(x) !== x
+
+.. code:: javascript
+
+    function showCase(value) {
+        switch(value) {
+        case 'A':
+            console.log('Case A');
+            break;
+        case 'B':
+            console.log('Case B');
+            break;
+        case undefined:
+            console.log('undefined');
+            break;
+        default:
+            console.log('Do not know!');
+        }
+    }
+    showCase(new String('A'));
+    Do not know!
+
+
 How to define functions and objects in JS
 -----------------------------------------
 
