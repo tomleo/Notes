@@ -45,6 +45,18 @@ The var declaration is hoisted to the function scope, but the initialization is 
     })();
     Goodbye Jack
 
+Local vs. Global Functions, y is an automatic global, not a function local one like x
+
+.. code:: javascript
+
+    (function(){
+      var x = y = 1;
+    })();
+    console.log(y);
+    console.log(x);
+    1
+    RefereceError: x is not defined
+
 Switch Statement
 ----------------
 
@@ -103,6 +115,17 @@ function explicitly like below.
     Object { val=42}
 
 
+It should be noted that name is a read only property for example
+
+.. code:: javascript
+
+    function foo() { }
+    var oldName = foo.name;
+    foo.name = "bar";
+    [oldName, foo.name]
+    ["foo", "foo"]
+
+
 
 Prototypal Inheritance
 ----------------------
@@ -137,6 +160,18 @@ based on obj prototype.
     25 //grandchild.get() does not exist so looks in child for get -> child.get()
        //does not exist so looks in parent for get -> parent.get() which looks for
        //this.val which does not exist so looks for child.get=25
+
+The following code example evaluates to false
+
+.. code:: javascript
+
+    function f() {}
+    var a = f.prototype, b = Object.getPrototypeOf(f);
+    a === b
+
+This is because f.prototype is the object that will become the parent of any objects created with
+new f while Object.getPrototypeOf returns the parent in the inheritance hierarchy.
+        
 
 Polymorphism
 -------------
