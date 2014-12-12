@@ -269,6 +269,12 @@ https://github.com/creationix/nvm
 
 Left off at 15:00 [1]_
 
+Installing Node
+~~~~~~~~~~~~~~~
+
+curl -sL https://deb.nodesource.com/setup | sudo bash -
+sudo apt-get install -y nodejs
+
 
 Arrays
 ------
@@ -314,8 +320,60 @@ state of an element you should do the following [2]_
     }, false);
 
 
+Module pattern
+--------------
+
+This pattern allows for public and private variables as well as public and
+private methods via a function closure. [4]_ 
+
+.. code:: javascript
+
+    var myNamespace = (function () {
+     
+      var myPrivateVar, myPrivateMethod;
+     
+      // A private counter variable
+      myPrivateVar = 0;
+     
+      // A private function which logs any arguments
+      myPrivateMethod = function( foo ) {
+          console.log( foo );
+      };
+     
+      return {
+     
+        // A public variable
+        myPublicVar: "foo",
+     
+        // A public function utilizing privates
+        myPublicFunction: function( bar ) {
+     
+          // Increment our private counter
+          myPrivateVar++;
+     
+          // Call our private method using bar
+          myPrivateMethod( bar );
+     
+        }
+      };
+     
+    })();
+
+
+Promise
+=======
+
+Promise `Anit-patterns <http://taoofcode.net/promise-anti-patterns/>`_
+
+jQuery
+======
+
+All jQuery Ajax methods return Deferred objects, and then provides a single callback. [3]_
+
+
 
 
 .. [1] http://www.objectplayground.com/
 .. [2] http://jsfiddle.net/codepo8/cb7pG/3/light/
-
+.. [3] http://css-tricks.com/multiple-simultaneous-ajax-requests-one-callback-jquery/
+.. [4] http://addyosmani.com/resources/essentialjsdesignpatterns/book/#modulepatternjavascript

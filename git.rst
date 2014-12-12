@@ -33,6 +33,15 @@ Solution [3]_
 
     git commit -m "Revert to 56e05fced"
 
+Adding a remote
+---------------
+
+Solution [6]_
+
+::
+
+    git remote add origin https://github.com/user/repo.git
+
 Change Remote branches from https to git
 ----------------------------------------
 
@@ -93,9 +102,23 @@ option::
 
     git am -3 --signoff < new_stuff.patch
 
+Ignoring revisions to a file
+----------------------------
+
+Ignoring revisions of files is usefull, for example you can apply it to your .gitignore so that you
+can ignore local files that other people will not have on their computer [7]_::
+
+    git update-index --assume-unchanged path/to/file.txt
+
+To undo assume-unchanged do the following::
+
+    git update-index --no-assume-unchanged path/to/file.txt
+
 
 .. [1] http://stackoverflow.com/a/4218823/465270
 .. [2] https://help.github.com/articles/changing-a-remote-s-url
 .. [3] http://stackoverflow.com/a/1895095
 .. [4] Forgot to record the link
 .. [5] http://stackoverflow.com/a/1842964/465270
+.. [6] https://help.github.com/articles/adding-a-remote
+.. [7] https://help.github.com/articles/ignoring-files

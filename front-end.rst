@@ -34,6 +34,11 @@ reference pixel: optically consistent unit, w3c considers a pixel a reference pi
 density independent pixel (dip): basically scales pixels up on higher dpi
 devices so they are consistent with devices with lower dpi. [2]_
 
+Vertical Percentages are Relative to Container Width, Not Height
+----------------------------------------------------------------
+
+http://codepen.io/SitePoint/pen/qLnpm
+
 Media Queries
 -------------
 
@@ -48,6 +53,19 @@ devices specs is as simple as changing the base font-size.
 
 CSS3
 ====
+
+background
+----------
+
+::
+
+    background: [background-color] [background-image] [background-repeat]
+                [background-attachment] [background-position] / [ background-size]
+                [background-origin] [background-clip];
+
+.. Note: the element to which you apply clip must be positioned absolutely
+
+http://codepen.io/SitePoint/pen/qLnpm
 
 transform
 ---------
@@ -105,6 +123,48 @@ mixins
 
     block
         +bubbles($name)
+
+
+list things
+-----------
+
+Dictionary Like Rule Creation
+
+.. code-block:: scss
+
+    $prefix: skioo;
+    $color-list: (
+      green #7AEA8B,
+      yellow #F6FAA2,
+      blue #1902E8,
+      red #E80202
+    );
+
+    @each $value in $color-list {
+      .#{$prefix}-#{nth($value, 1)} {
+        font-size: 1em;
+      }
+    }
+
+The resulting CSS will look like this
+
+.. code-block:: css
+
+    .skioo-green {
+      font-size: 1em;
+    }
+
+    .skioo-yellow {
+      font-size: 1em;
+    }
+
+    .skioo-blue {
+      font-size: 1em;
+    }
+
+    .skioo-red {
+      font-size: 1em;
+    }
 
 Bootstrap 3
 ===========

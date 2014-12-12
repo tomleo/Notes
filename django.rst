@@ -283,6 +283,31 @@ get_app(app_label) #Returns applications models module
     >> from django.db.models.loading import get_models
     >> get_models()
 
+generic relations
+-----------------
+
+django.contrib.contenttypes.generic
+
+Allows you to create a foreign key that doesn't specify what model it relates
+to. Can relate to any instance of any model.
+
+Add ForeignKey to django.contrib.contenttypes.models.ContentType
+Add Field that can hold a primary-key value (usually IntegerField or TextField)
+Add GenericForeignKey specifying FK and Primary-Key fields as arguments
+
+.. code-block:: python
+
+    class Tag(models.Model):
+        content_type = models.ForeignKey(ContentType)
+        object_id = models.TextField()
+        object = generic.GenericForeignKey('content_type', 'object_id')
+        tag = models.CharField(max_length=255)
+
+    >> guido = User.objects.get(username='guido')
+    >> t = Tag(object=guido, tag='bdfl')
+    >> t.save()
+    >> t.object
+    <User: guido>
 
 Forms
 =====
@@ -290,12 +315,42 @@ Forms
 Figure out how to set all Django form fields via JS
 Figure out how to create forms using form field variables
 
+.. code-block:: python
+
+    #Example form that will be referenced more in this section
+    class cars(forms.ModelForm):
+        class Meta:
+            fields = ('make', 'model', 'year')
+
+
+Generating Form Fields
+----------------------
+
+For more information see the docs [4]_ ::
+
+    {{ form.make.label_tag() }}   ->   <label for="id_make">Installing Solar PV since</label>
+    {{ form.make }}               ->   <input type="text" name="make" value="ford" id="id_make">
+    {{ form.make.value }}         ->   ford
+
+
 
 Get Form Field Id
 -----------------
 
 TODO: figure out how to do this
 http://stackoverflow.com/questions/3763423/how-to-get-form-fields-id-in-django
+
+
+Image field / Logo field not showing up in post data
+----------------------------------------------------
+
+Their are a few possible reasons why image/file fields do not show up in POST data. But the most
+common mistakes I make are (1) forgetting to add multipart/form-data to the form in the template
+and (2) forgetting to pass request.FILE to the form.
+
+.. code-block:: html
+
+    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" accept-charset="utf-8">
 
 Model Forms with m2m Data
 -------------------------
@@ -399,8 +454,19 @@ To fix this add the empty_label=None option to the field.
             self.fields['bacon_type'].empty_label = None
 
     **
+
+
+Nginx
+=====
+
+Nginx cannot serve resources if they are not given the correct permissions. For
+servering static files the following tends to work well::
+
+    sudo chown -R my-user:www-data /webdirectory
+    sudo chmod -R 0755 /webdirectory
                 
 
 .. [1] http://stackoverflow.com/a/8797685/465270
 .. [2] http://farmdev.com/talks/unicode/
 .. [3] http://blog.etianen.com/blog/2013/06/08/django-querysets/
+.. [4] https://docs.djangoproject.com/en/dev/ref/forms/api/#django.forms.BoundField.id_for_label
