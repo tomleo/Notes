@@ -1,0 +1,39 @@
+A way to dynamicaly access a variable
+
+	var myVariable = document.getElementById(myElement); 
+
+	myVariable.style.display = "block";  
+	myVariable.style.backgroundColor = "#f00";  
+	myVariable.style.border = "solid 1px #00f";
+
+Look threw DOM for all elements with specified tag name 
+Creates an array
+	var myLinkCollection = document.getElementsByTagName("a"); 
+
+	for (i = 0; i < myLinkCollection.length; i++) {  
+	    if (myLinkCollection[i].className == "link_class") {  
+		myLinkCollection[i].onclick = function() {  
+		    myLinkCollection[i].style.backgroundColor = "#f00";  
+	    }  
+	}  
+
+Create a new element
+	var myNewListItem = document.createElement("li");  
+	var myNewLink = document.createElement("a");
+
+Remove Child element
+	var myLinkList = document.getElementById("list");  
+	var myRemovedLink = myLinkList.lastChild;  
+	myLinkList.removeChild(myRemovedLink);  
+
+Get Attribute
+	<ul id="list">  
+		<li><a href="link1.html" class="link_one">Link Number One</a></li>  
+		<li><a href="link2.tml">Link Number Two</a></li>  
+		<li><a href="link3.html">Link Number Three</a></li>  
+		<li><a href="link4.html">Link Number Four</a></li>  
+		<li><a href="link5.html" id="link_5" rel="external">Link Number Five</a></li>  
+	</ul>  
+
+	var myLinkFive = document.getElementById("link_5");  
+	var myLinkAttribute = myLinkFive.getAttribute("rel");  

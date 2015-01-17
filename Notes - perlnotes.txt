@@ -1,0 +1,106 @@
+http://stackoverflow.com/questions/161872/hidden-features-of-perl
+
+say is like java's println, it adds the \n to the end of the print line
+    say "Hello World";
+    
+you can print multiple variables seperated by commas
+    print "The answer is ", 6 * 7, ".\n";
+
+TYPES
+    scalar - like a perl primative, either a number or a string
+        224
+        2.14e20
+        hello
+        Gettysburg Address
+        
+    floating-point literal = not result of calculation or I/0
+        1.25
+        255.0
+        7.34e34     # 7.34X10^34
+        -1.2E-23    # e can be uppercase
+        
+    integer literals
+        1234
+        12_000_000
+        -5
+        0334    #octal, 255 in decimal
+        0xff    #hex
+        0b11    #binary
+    
+    strings
+        single-quote string - does not interpret the \n
+    
+        double-quote string
+            escapes
+                \n
+                \r
+                \t
+                \f      Formfeed
+                \b      Backspace
+                \a      Bell
+                \e      ASCII escape
+                \007    octal ASCII value (bell)
+                \x7f    any hex value (delete)
+                \x{2744}   any hex unicode (U+2774=snowflake)
+                \cC     Ctrl-C
+                \\
+                \"
+                \|      lower case next letter
+                \L      lower case all letters until \E
+                \u      uppercase next letter
+                \U      uppercase all leters until \E
+                \Q      quote nonword chars until \E
+                \E      ends \L,\U, or \Q
+        concat strings
+            "this" . "that"
+            
+        string repetition
+            "-" X 5     -----
+            5 X 4.9     the X operator needs a string so it
+                        will convert 5 to a string
+                            returns 5555
+
+    operators
+        +,-,/,*
+        /   will always return a floating-point divide
+        2**2    2^2
+        
+        !   is opposite, but perl doesnt have a bool type so
+            the values with always be 0 or 1
+        !!  will return the 'bool' value of a variable i.e. 0 or 1
+        
+        
+    comparison operators
+        numbers     strings
+        ==          eq
+        !=          ne
+        <           lt
+        >           gt
+        <=          le
+        >=          ge
+   
+    implicit type conversions
+        "5" * '10'      50
+        5 x 10          5555555555
+        "5" . '10'      510
+        'a' . 5 * '12'  a60
+        
+    use
+        warnings - shows warnings
+        diagnostics - longer diagnostic descriptions
+        5.010 - will use features new in perl 5.10
+        encoding utf8 - allows wider range of chars, 
+            this will not work if you are 'using' strict
+        
+    scalar variables
+        $var_name   var_name is case sensitive
+        
+        
+        
+    args
+        <STDIN> gits you args
+        chomp() removes trailing \n
+        comp($text = <STDIN>); will read stdin without \n
+        
+
+        
