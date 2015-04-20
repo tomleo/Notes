@@ -309,6 +309,30 @@ Add GenericForeignKey specifying FK and Primary-Key fields as arguments
     >> t.object
     <User: guido>
 
+
+DatabaseIntrospection
+---------------------
+
+- Knows how to get lists of tables, columns, relationships
+- Knows how to map DB's internal column types back to Django field types
+
+inspectdb
+
+    management command that will look at your database and reverse engineer
+    Django models for it [5]_
+
+dbshell
+
+    management command that will open up an iteractive shell/console session to
+    the DB
+
+SQLCompiler
+-----------
+
+- Turns Django Query instance into SQL
+- Query.get_compiler() returns a SQLCompiler instance for that Query [6]_
+
+
 Forms
 =====
 
@@ -470,3 +494,10 @@ servering static files the following tends to work well::
 .. [2] http://farmdev.com/talks/unicode/
 .. [3] http://blog.etianen.com/blog/2013/06/08/django-querysets/
 .. [4] https://docs.djangoproject.com/en/dev/ref/forms/api/#django.forms.BoundField.id_for_label
+.. [5] https://youtu.be/tkwZ1jG3XgA?list=WL&t=624
+.. [6] https://youtu.be/tkwZ1jG3XgA?list=WL&t=843
+
+
+./media/django-in-depth-2015.pdf (Slide #)
+
+
