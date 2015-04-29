@@ -264,6 +264,96 @@ iterate over large dataset example
             print(pet.name)
 
 
+QuerySet.update()
+-----------------
+
+- tries to make requested change in a single SQL UPDATE query instead of
+  updating each row individually
+
+.. Note:: 
+
+    Doesn't execute custom save() methods on the model, 
+    Doesn't trigger pre_save and post_save signals
+
+QuerySet.delete()
+-----------------
+
+- tries to do a single SQL DELETE query
+
+.. Note::
+
+    Doesn't execute custom delete() methods on model
+    Does sent pre_delete and post_delete signals (including for things deleted
+    by cascade)
+
+
+N+1 Database problem
+--------------------
+
+.. code-block:: python
+
+    #models.py
+    class Chef(models.Model):
+        name = modles.CharField(max_length=64)
+
+    class Restaurant(models.model):
+
+        style_choices = (('chinese', 'Chinese'),)
+
+        name = models.CharField(max_length=64)
+        chef = models.ForeignKey(Chef)
+        style = models.CharField(choices=style_choices)
+
+
+The N+1 problem is essentially it takes (1 query to get the list of
+restaurants), then you must iterate the result to find a matching chef for each
+restaurant (N restaurants).
+
+
+select_related()
+````````````````
+
+At sql level figures out the joins to get not just Restaurants but also
+chef's related to Restaurants. (joining in SQL)
+
+.. Note::
+
+    Generic relations and m2m relations will not work
+
+prefetch_related()
+``````````````````
+
+Can fetch m2m and generic relations with one query per relation (joining in
+Python)
+
+
+select_for_update()
+-------------------
+
+locks the selected rows until end of transaction
+
+Custom QuerySet's
+-----------------
+
+.. code-block:: python
+
+    class RestaurantStyleQuerySet(models.QuerySet):
+
+        def chinese(self):
+            return self.filter(style=self.model.style_choices.chinese)
+
+        def itallian(self):
+            return self.filter(style=self.model.style_choices.itallian)
+
+    class RestaurantManager(models.Manager):
+        def get_queryset(self):
+            return RestaurantStyleQuerySet(self.model)
+
+    chinese_food_restaurants = Restaurant.objects.all().chinese()
+
+
+
+
 django.db.models.loading
 ------------------------
 
