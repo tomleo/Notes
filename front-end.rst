@@ -174,5 +174,13 @@ sm = tablets
 md = desktops
 lg = large desktops
 
+
+D3
+========
+
+IE8/IE9 Shim for D3: https://github.com/shawnbot/aight
+
+
+
 .. [1] http://alistapart.com/article/a-pixel-identity-crisis
 .. [2] http://developer.android.com/guide/practices/screens_support.html#density-independence
