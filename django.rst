@@ -591,3 +591,17 @@ servering static files the following tends to work well::
 ./media/django-in-depth-2015.pdf (Slide #)
 
 
+Django View/Template
+====================
+
+Tooltips for Radio Buttons Items (Chocies Field)
+
+.. code-block:: python
+
+    from django.utils.safestring import mark_safe
+    choices = (
+        ('1', mark_safe(u'<em>HTML</em><span>Is being put</span> inside tooltip')),
+        ('2', mark_safe(u'<p>Tooltip logic could go here</p>')
+    )
+
+
