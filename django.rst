@@ -352,6 +352,28 @@ Custom QuerySet's
     chinese_food_restaurants = Restaurant.objects.all().chinese()
 
 
+order_by 
+--------
+
+descending order
+````````````````
+
+high to low
+
+.. code-block:: python
+
+    >> User.objects.all().order_by('-id')[0].id
+    44
+
+ascending order
+```````````````
+
+low to high
+
+.. code-block:: python
+
+    >> User.objects.all().order_by('id')[0].id
+    1
 
 
 django.db.models.loading
@@ -603,5 +625,6 @@ Tooltips for Radio Buttons Items (Chocies Field)
         ('1', mark_safe(u'<em>HTML</em><span>Is being put</span> inside tooltip')),
         ('2', mark_safe(u'<p>Tooltip logic could go here</p>')
     )
+
 
 

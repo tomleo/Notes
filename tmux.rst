@@ -72,3 +72,5 @@ new-window -n <name> "<command>"
         
         new-window -n process "top"
 
+
+
