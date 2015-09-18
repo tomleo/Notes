@@ -444,6 +444,15 @@ SQLCompiler
 - Turns Django Query instance into SQL
 - Query.get_compiler() returns a SQLCompiler instance for that Query [6]_
 
+Django Model instance to JSON
+-----------------------------
+
+Datetimes to JSON:
+
+.. code-block:: python
+
+    # RfC 3339
+    datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
 
 Forms
 =====

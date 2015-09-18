@@ -73,4 +73,13 @@ new-window -n <name> "<command>"
         new-window -n process "top"
 
 
+Make CapsLck an additional control key:
+
+.. code-block:: cmd
+
+    setxkbmap -layout us -option ctrl:nocaps
+
+
+
+
 

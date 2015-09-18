@@ -9,3 +9,5 @@ rectangular selection::
 
 .. _xrectsel: https://github.com/lolilolicon/xrectsel
 
+If you want to replace all previously specified options, use the -option flag
+with an empty argument first.
