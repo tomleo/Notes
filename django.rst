@@ -44,8 +44,8 @@ In the base directory of your django project::
     find ./ -name \*.pyc -exec rm {} \;
     find ./ -name \*.pyc -ls
 
-Error: cannot import name <Name>
---------------------------------
+Error: cannot import name <Name> (debug)
+----------------------------------------
 
 STR: When running manage.py runserver normally a traceback will be displayed
 however, sometimes you get the cryptic error "cannot import name <name>"
