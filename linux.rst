@@ -1,6 +1,37 @@
+Searching
+=========
 
 Search for line in files::
     find ./ -type f -print0 | xargs -0 grep -l "Oh Hai"
+
+
+Copying
+=======
+
+Copy files from ``/foo/bar/`` to ``/backups/bar`` skipping files that already
+exist on ``/backups/bar``::
+
+    rsync -avu --ignore-existing "/foo/bar/" "/backups/bar"
+
+Comparing files based on size and time (the default) is faster than using a
+checksum.
+
+Basic Options::
+
+    -a archive
+    -v verbose
+    -c, --checksum
+        skip based on checksum, not mod-time & size
+    -u, --update
+        skip files that are newer on the receiver
+    -i, --itemize-changes
+        output a change-summary for all updates
+    --ignore-existing
+        skip updating files that exist on receiver
+
+    -n, --dry-run
+        perform a trial run with no changes made
+
 
 xrectsel
 --------
@@ -23,7 +54,6 @@ GIF screen capture
 
 If you want to replace all previously specified options, use the -option flag
 with an empty argument first.
-
 
 
 
