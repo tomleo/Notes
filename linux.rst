@@ -28,9 +28,20 @@ Basic Options::
         output a change-summary for all updates
     --ignore-existing
         skip updating files that exist on receiver
-
     -n, --dry-run
         perform a trial run with no changes made
+    -z, --compress
+        compress file data during the transfer
+
+Copy files from external server
+-------------------------------
+
+.. code-block:: bash
+
+    rsync -avz username@server:/home/a/b/target_folders/ target_folder
+
+This will copy the contents from ``target_folder`` on the remote machine into
+``target_folder`` on local machine.
 
 
 xrectsel
