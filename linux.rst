@@ -4,6 +4,8 @@ Searching
 Search for line in files::
     find ./ -type f -print0 | xargs -0 grep -l "Oh Hai"
 
+Search for iso files, ignoring folders dot folders (i.e. .git, .svn, .ect)::
+    find . -type f -not -path '*/\.*' -name *.iso
 
 Copying
 =======
