@@ -45,6 +45,25 @@ Copy files from external server
 This will copy the contents from ``target_folder`` on the remote machine into
 ``target_folder`` on local machine.
 
+Archiving
+=========
+
+Create rar archive split across multiple files
+----------------------------------------------
+
+.. code-block:: bash
+    rar a -v50000 -m0 file.rar thing_to_archive
+
+::
+   -m<0..5>
+          Set compression level (0-store...3-default...5-best). By default rar uses -m3 method (Normal compression).
+
+   -v<size>[k|b|f]
+          Create volumes with size=<size>*1000 [*1024, *1].
+
+
+Screen Capture
+==============
 
 xrectsel
 --------
@@ -69,6 +88,13 @@ If you want to replace all previously specified options, use the -option flag
 with an empty argument first.
 
 
+System Monitoring
+=================
 
+disk space (free space)
+----------
+
+::
+    df -h
 
 
