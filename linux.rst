@@ -7,6 +7,10 @@ Search for line in files::
 Search for iso files, ignoring folders dot folders (i.e. .git, .svn, .ect)::
     find . -type f -not -path '*/\.*' -name *.iso
 
+Search Django::
+    BASE_PATH="/home/tom/energysage/env/lib/python2.7/site-packages"
+    find "$BASE_PATH/django" -type f -not -path '*/\.*' -name '*.py' -print0 | xargs -0 grep -C 3 -A 2 "Search String"
+
 Copying
 =======
 
