@@ -44,8 +44,8 @@ In the base directory of your django project::
     find ./ -name \*.pyc -exec rm {} \;
     find ./ -name \*.pyc -ls
 
-Error: cannot import name <Name>
---------------------------------
+Error: cannot import name <Name> (debug)
+----------------------------------------
 
 STR: When running manage.py runserver normally a traceback will be displayed
 however, sometimes you get the cryptic error "cannot import name <name>"
@@ -352,6 +352,28 @@ Custom QuerySet's
     chinese_food_restaurants = Restaurant.objects.all().chinese()
 
 
+order_by 
+--------
+
+descending order
+````````````````
+
+high to low
+
+.. code-block:: python
+
+    >> User.objects.all().order_by('-id')[0].id
+    44
+
+ascending order
+```````````````
+
+low to high
+
+.. code-block:: python
+
+    >> User.objects.all().order_by('id')[0].id
+    1
 
 
 django.db.models.loading
@@ -422,6 +444,15 @@ SQLCompiler
 - Turns Django Query instance into SQL
 - Query.get_compiler() returns a SQLCompiler instance for that Query [6]_
 
+Django Model instance to JSON
+-----------------------------
+
+Datetimes to JSON:
+
+.. code-block:: python
+
+    # RfC 3339
+    datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
 
 Forms
 =====
@@ -603,5 +634,6 @@ Tooltips for Radio Buttons Items (Chocies Field)
         ('1', mark_safe(u'<em>HTML</em><span>Is being put</span> inside tooltip')),
         ('2', mark_safe(u'<p>Tooltip logic could go here</p>')
     )
+
 
 
