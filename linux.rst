@@ -119,4 +119,10 @@ disk space (free space)
 ::
     df -h
 
+Slick One-liners
+================
+
+::
+    gzip -cd tmpYWX_dZ | cut -f2,3 | sort -u | cut -f1 | uniq -c | grep -v " 1 " | cut -c9-  
+  
 
