@@ -166,6 +166,33 @@ The resulting CSS will look like this
       font-size: 1em;
     }
 
+Forms
+=====
+
+Number Input
+------------
+
+.. code-block:: html
+
+    <input type="number" pattern="[0-9]*" step="any">
+
+iOS requires the pattern attribute in order to look like the android keyboard [3]_.
+
+on Desktop you can't controll the keyboard, so a user may add a dollar sign
+(which isn't an alpha numeric). step="any" should fix this issue in Chrome [3]_.
+
+An alternative is to just use tel
+
+.. code-block:: html
+
+    <input type="tel">
+
+This will give you a cross-device 10-key keypad
+
+
+
+
+
 Bootstrap 3
 ===========
 
@@ -174,6 +201,11 @@ sm = tablets
 md = desktops
 lg = large desktops
 
+
+D3
+========
+
+IE8/IE9 Shim for D3: https://github.com/shawnbot/aight
 
 Networking
 ==========
@@ -207,5 +239,5 @@ Limit bandwidth
 
 .. [1] http://alistapart.com/article/a-pixel-identity-crisis
 .. [2] http://developer.android.com/guide/practices/screens_support.html#density-independence
+.. [3] http://www.smashingmagazine.com/2015/05/05/form-inputs-browser-support-issue/ 
 .. [3] http://coreygoldberg.blogspot.com/2015/04/linux-simulating-degraded-network.html
-

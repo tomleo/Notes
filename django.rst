@@ -44,8 +44,8 @@ In the base directory of your django project::
     find ./ -name \*.pyc -exec rm {} \;
     find ./ -name \*.pyc -ls
 
-Error: cannot import name <Name>
---------------------------------
+Error: cannot import name <Name> (debug)
+----------------------------------------
 
 STR: When running manage.py runserver normally a traceback will be displayed
 however, sometimes you get the cryptic error "cannot import name <name>"
@@ -264,6 +264,118 @@ iterate over large dataset example
             print(pet.name)
 
 
+QuerySet.update()
+-----------------
+
+- tries to make requested change in a single SQL UPDATE query instead of
+  updating each row individually
+
+.. Note:: 
+
+    Doesn't execute custom save() methods on the model, 
+    Doesn't trigger pre_save and post_save signals
+
+QuerySet.delete()
+-----------------
+
+- tries to do a single SQL DELETE query
+
+.. Note::
+
+    Doesn't execute custom delete() methods on model
+    Does sent pre_delete and post_delete signals (including for things deleted
+    by cascade)
+
+
+N+1 Database problem
+--------------------
+
+.. code-block:: python
+
+    #models.py
+    class Chef(models.Model):
+        name = modles.CharField(max_length=64)
+
+    class Restaurant(models.model):
+
+        style_choices = (('chinese', 'Chinese'),)
+
+        name = models.CharField(max_length=64)
+        chef = models.ForeignKey(Chef)
+        style = models.CharField(choices=style_choices)
+
+
+The N+1 problem is essentially it takes (1 query to get the list of
+restaurants), then you must iterate the result to find a matching chef for each
+restaurant (N restaurants).
+
+
+select_related()
+````````````````
+
+At sql level figures out the joins to get not just Restaurants but also
+chef's related to Restaurants. (joining in SQL)
+
+.. Note::
+
+    Generic relations and m2m relations will not work
+
+prefetch_related()
+``````````````````
+
+Can fetch m2m and generic relations with one query per relation (joining in
+Python)
+
+
+select_for_update()
+-------------------
+
+locks the selected rows until end of transaction
+
+Custom QuerySet's
+-----------------
+
+.. code-block:: python
+
+    class RestaurantStyleQuerySet(models.QuerySet):
+
+        def chinese(self):
+            return self.filter(style=self.model.style_choices.chinese)
+
+        def itallian(self):
+            return self.filter(style=self.model.style_choices.itallian)
+
+    class RestaurantManager(models.Manager):
+        def get_queryset(self):
+            return RestaurantStyleQuerySet(self.model)
+
+    chinese_food_restaurants = Restaurant.objects.all().chinese()
+
+
+order_by 
+--------
+
+descending order
+````````````````
+
+high to low
+
+.. code-block:: python
+
+    >> User.objects.all().order_by('-id')[0].id
+    44
+
+ascending order
+```````````````
+
+low to high
+
+.. code-block:: python
+
+    >> User.objects.all().order_by('id')[0].id
+    1
+
+
 django.db.models.loading
 ------------------------
 
@@ -308,6 +420,39 @@ Add GenericForeignKey specifying FK and Primary-Key fields as arguments
     >> t.save()
     >> t.object
     <User: guido>
+
+
+DatabaseIntrospection
+---------------------
+
+- Knows how to get lists of tables, columns, relationships
+- Knows how to map DB's internal column types back to Django field types
+
+inspectdb
+
+    management command that will look at your database and reverse engineer
+    Django models for it [5]_
+
+dbshell
+
+    management command that will open up an iteractive shell/console session to
+    the DB
+
+SQLCompiler
+-----------
+
+- Turns Django Query instance into SQL
+- Query.get_compiler() returns a SQLCompiler instance for that Query [6]_
+
+Django Model instance to JSON
+-----------------------------
+
+Datetimes to JSON:
+
+.. code-block:: python
+
+    # RfC 3339
+    datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
 
 Forms
 =====
@@ -470,3 +615,25 @@ servering static files the following tends to work well::
 .. [2] http://farmdev.com/talks/unicode/
 .. [3] http://blog.etianen.com/blog/2013/06/08/django-querysets/
 .. [4] https://docs.djangoproject.com/en/dev/ref/forms/api/#django.forms.BoundField.id_for_label
+.. [5] https://youtu.be/tkwZ1jG3XgA?list=WL&t=624
+.. [6] https://youtu.be/tkwZ1jG3XgA?list=WL&t=843
+
+
+./media/django-in-depth-2015.pdf (Slide #)
+
+
+Django View/Template
+====================
+
+Tooltips for Radio Buttons Items (Chocies Field)
+
+.. code-block:: python
+
+    from django.utils.safestring import mark_safe
+    choices = (
+        ('1', mark_safe(u'<em>HTML</em><span>Is being put</span> inside tooltip')),
+        ('2', mark_safe(u'<p>Tooltip logic could go here</p>')
+    )
+
+
+

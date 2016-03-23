@@ -2,6 +2,9 @@
 GIT NOTES
 =========
 
+Basics
+======
+
 Get a file from a sha1
 ----------------------
 
@@ -122,3 +125,13 @@ To undo assume-unchanged do the following::
 .. [5] http://stackoverflow.com/a/1842964/465270
 .. [6] https://help.github.com/articles/adding-a-remote
 .. [7] https://help.github.com/articles/ignoring-files
+
+Git Log
+=======
+
+Show commits by <author> for date range
+---------------------------------------
+
+git log --pretty=format:"%cn committed %h on %cd" --after="2016-02-01" --before="2016-02-16" --author="Tom"
+git log --after="2016-02-01" --before="2016-02-16" --author="Tom"
+

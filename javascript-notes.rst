@@ -518,6 +518,23 @@ Jedi.prototype.setHeight = function(height) {
 var luke = new Jedi();
 luke.jump().setHeight(20);
 
+Feature Detection
+-----------------
+
+.. code-block:: javascript
+
+    // Dependency Testing
+    // via Quo vadis, JavaScript? Devday.pl keynote by Christian Heilmann
+    if ('visibilityState' in document) {
+        // Modern browser. Let's load JavaScript
+        if ('serviceWorker' in navigator) {
+            // Let's add offline support
+            navigator.serviceWorker.register('sw.js', {
+                scope: './'
+            });
+        }
+    }
+
 Promise
 =======
 
