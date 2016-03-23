@@ -174,5 +174,38 @@ sm = tablets
 md = desktops
 lg = large desktops
 
+
+Networking
+==========
+
+Delay packets
+-------------
+
+add fixed 250ms delay to all outgoing packets on Ethernet interface eth1 [3]_:
+
+.. code-block:: terminal256
+    
+    sudo tc qdisc add dev eth1 root netem delay 250ms
+
+turn off
+
+.. code-block:: terminal256
+
+    sudo tc qdisc del dev eth1 root netem 
+
+Limit bandwidth
+---------------
+
+.. code-block:: terminal256
+
+    sudo wondershaper eth1 256 128
+
+.. code-block:: terminal256
+
+    sudo wondershaper clear eth1
+
+
 .. [1] http://alistapart.com/article/a-pixel-identity-crisis
 .. [2] http://developer.android.com/guide/practices/screens_support.html#density-independence
+.. [3] http://coreygoldberg.blogspot.com/2015/04/linux-simulating-degraded-network.html
+

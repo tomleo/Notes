@@ -371,10 +371,29 @@ https://github.com/creationix/nvm
 Left off at 15:00 [1]_
 
 Installing Node
-~~~~~~~~~~~~~~~
+---------------
 
 curl -sL https://deb.nodesource.com/setup | sudo bash -
 sudo apt-get install -y nodejs
+
+IO
+-----
+
+All synchronous (or blocking) filesystem methods in the fs module end with
+'Sync'.
+
+.. code:: javascript
+
+    // return a Buffer object containing the complete contents of the file
+    fs.readFileSync('/path/to/file')
+
+Buffer objects are Node's way of efficiently representing arbitrary arrays of
+data, whether it be ascii, binary or some other format. Buffer objects can be
+converted to strings by simply calling the toString() method on them. 
+
+.. code:: javascript
+
+    var str = buf.toString().
 
 
 Arrays
