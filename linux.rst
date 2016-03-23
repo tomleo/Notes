@@ -123,6 +123,35 @@ Slick One-liners
 ================
 
 ::
-    gzip -cd tmpYWX_dZ | cut -f2,3 | sort -u | cut -f1 | uniq -c | grep -v " 1 " | cut -c9-  
+    gzip -cd filename.tsv.gz | cut -f2,3 | sort -u | cut -f1 | uniq -c | grep -v " 1 " | cut -c9-  
   
+
+MySQL
+=====
+
+Get table column names::
+    mysql> describe ext_data_ngusage;
+    +--------------+---------------+------+-----+---------+----------------+
+    | Field        | Type          | Null | Key | Default | Extra          |
+    +--------------+---------------+------+-----+---------+----------------+
+    | id           | int(11)       | NO   | PRI | NULL    | auto_increment |
+    | value1       | decimal(12,3) | NO   |     | NULL    |                |
+    | value2       | decimal(10,2) | NO   |     | NULL    |                |
+    | date         | date          | NO   | MUL | NULL    |                |
+    | fk_id        | int(11)       | YES  | MUL | NULL    |                |
+    +--------------+---------------+------+-----+---------+----------------+
+    6 rows in set (0.00 sec)
+
+Find Duplicates
+---------------
+
+Get duplicate rows::
+    SELECT loc_id, to_date, count(*) AS dupe_count
+    FROM ext_data_ngusage
+    GROUP BY loc_id, to_date
+    HAVING dupe_count > 1;
+
+Write duplicate rows to file::
+    mysql -u<mysql user name> -h <host name> -p -e "SELECT loc_id, to_date, count(*) AS dupe_count FROM ext_data_ngusage GROUP BY loc_id, to_date HAVING dupe_count > 1;" <name of database> | cut -f1 | uniq > dup_ids.txt
+
 
