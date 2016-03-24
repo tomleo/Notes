@@ -1,3 +1,20 @@
+** Basic Commands
+
+y       	Copy the selected text to clipboard
+p       	Paste clipboard contents
+dd       	Cut current line
+yy       	Copy current line
+y$       	Copy to end of line
+D       	Cut to end of line
+vEU         Switch word to uppercase
+:browse e 	Graphical file explorer
+!!pwd 	    Execute the pwd unix command and insert output in file
+:tabnew 	Creates a new tab
+gt          Show next tab
+m {a-z} 	Marks current position as {a-z}
+' {a-z} 	Move to position {a-z}
+'' 	        Move to previous position
+z=          For the word under/after the cursor, suggest correctly spelled words.
 
 ** Resizing Panes
 

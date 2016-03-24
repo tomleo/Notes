@@ -154,4 +154,34 @@ Get duplicate rows::
 Write duplicate rows to file::
     mysql -u<mysql user name> -h <host name> -p -e "SELECT loc_id, to_date, count(*) AS dupe_count FROM ext_data_ngusage GROUP BY loc_id, to_date HAVING dupe_count > 1;" <name of database> | cut -f1 | uniq > dup_ids.txt
 
+Systems Programming/Bash
+========================
+
+resources
+---------
+
+http://shelldorado.com/
+`BASH Frequently Asked Questions <http://mywiki.wooledge.org/BashFAQ>`_
+
+streams
+-------
+
+streams are referred to by numbers, called file descriptors (FDs)
+0 = stdin
+1 = stdout
+2 = stderr
+
+This sends "OK?" to FILE and "Oops!" to ERRORFILE
+
+.. code-block:: bash
+
+    printf '%s\n%v\n' OK? Oops! > FILE 2> ERRORFILE
+
+redirected to another I/O stream by using >&N where N is the
+number of the file descriptor.
+
+.. code-block:: bash
+
+    printf '%s\n%v\n' OK? Oops! > FILE 2>&1 ERRORFILE
+
 
