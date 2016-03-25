@@ -119,6 +119,37 @@ The bug can also be papered over by adding the missing dependency in a subclass:
 but this merely hides the underlying bug: any subclass that does not declare
 MyMixin's dependency for it will still hit the problem.
 
+Server Programming
+==================
+
+Simple Server
+-------------
+
+.. code-block:: terminal256
+
+    python -m SimpleHTTPServer 5000
+
+
+
+Data Visualization
+==================
+
+Venn Diagrams
+-------------
+
+Left Handed People: 500
+Right Handed People: 2300
+Ambidextrous People: 23
+
+.. code-block:: python
+
+    from matplotlib import pyplot as plt
+    from matplotlib_venn import venn2
+    plt.figure(figsize=(4,4))
+    plt.title("Venn Diagram: Which hand do people favor")
+    v = venn2(subsets=(2300,23,500), set_labels=('Right Handed', 'Left Handed'))
+    plt.show()
+
 .. [1] http://stackoverflow.com/a/4555970
 .. [2] http://stackoverflow.com/a/1704156
 .. [3] http://stackoverflow.com/a/1704262

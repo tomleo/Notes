@@ -119,4 +119,69 @@ disk space (free space)
 ::
     df -h
 
+Slick One-liners
+================
+
+::
+    gzip -cd filename.tsv.gz | cut -f2,3 | sort -u | cut -f1 | uniq -c | grep -v " 1 " | cut -c9-  
+  
+
+MySQL
+=====
+
+Get table column names::
+    mysql> describe ext_data_ngusage;
+    +--------------+---------------+------+-----+---------+----------------+
+    | Field        | Type          | Null | Key | Default | Extra          |
+    +--------------+---------------+------+-----+---------+----------------+
+    | id           | int(11)       | NO   | PRI | NULL    | auto_increment |
+    | value1       | decimal(12,3) | NO   |     | NULL    |                |
+    | value2       | decimal(10,2) | NO   |     | NULL    |                |
+    | date         | date          | NO   | MUL | NULL    |                |
+    | fk_id        | int(11)       | YES  | MUL | NULL    |                |
+    +--------------+---------------+------+-----+---------+----------------+
+    6 rows in set (0.00 sec)
+
+Find Duplicates
+---------------
+
+Get duplicate rows::
+    SELECT loc_id, to_date, count(*) AS dupe_count
+    FROM ext_data_ngusage
+    GROUP BY loc_id, to_date
+    HAVING dupe_count > 1;
+
+Write duplicate rows to file::
+    mysql -u<mysql user name> -h <host name> -p -e "SELECT loc_id, to_date, count(*) AS dupe_count FROM ext_data_ngusage GROUP BY loc_id, to_date HAVING dupe_count > 1;" <name of database> | cut -f1 | uniq > dup_ids.txt
+
+Systems Programming/Bash
+========================
+
+resources
+---------
+
+http://shelldorado.com/
+`BASH Frequently Asked Questions <http://mywiki.wooledge.org/BashFAQ>`_
+
+streams
+-------
+
+streams are referred to by numbers, called file descriptors (FDs)
+0 = stdin
+1 = stdout
+2 = stderr
+
+This sends "OK?" to FILE and "Oops!" to ERRORFILE
+
+.. code-block:: bash
+
+    printf '%s\n%v\n' OK? Oops! > FILE 2> ERRORFILE
+
+redirected to another I/O stream by using >&N where N is the
+number of the file descriptor.
+
+.. code-block:: bash
+
+    printf '%s\n%v\n' OK? Oops! > FILE 2>&1 ERRORFILE
+
 
