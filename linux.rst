@@ -185,3 +185,17 @@ number of the file descriptor.
     printf '%s\n%v\n' OK? Oops! > FILE 2>&1 ERRORFILE
 
 
+SSH
+===
+
+Local port listens to 
+
+.. code-block:: bash
+
+    > ssh -L <port>:localhost:<port> <user>@<domain>
+    > local_program --port=<port>
+
+Diagrams
+========
+
+dot -Tsvg -o callgraph.svg
