@@ -517,15 +517,21 @@ Feature Detection
     }
 
 Promise
-=======
+-------
 
 Promise `Anit-patterns <http://taoofcode.net/promise-anti-patterns/>`_
 
 jQuery
-======
+------
 
 All jQuery Ajax methods return Deferred objects, and then provides a single callback. [3]_
 
+RxJS
+----
+
+JavaScript is multithreaded so don’t need to worry about shared state running through different threads. [9]_
+
+Traversing a stream is semantically equivalent as subscribing to it
 
 ES6
 ===
@@ -595,3 +601,4 @@ example via [8]_
 .. [6] https://javascriptweblog.wordpress.com/2011/02/07/truth-equality-and-javascript/#more-2108
 .. [7] http://stackoverflow.com/questions/7365172/semicolon-before-self-invoking-function/7365214#7365214
 .. [8] http://stackoverflow.com/questions/31382489/es6-hash-array-index-function-call-mixed-syntax
+.. [9] RxJS in Action by Paul P. Daniels
