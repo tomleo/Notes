@@ -595,6 +595,36 @@ example via [8]_
 .. code-block:: es6
 
     function foo({username, res}) {}
+
+
+Backbone.js
+===========
+
+Listen to events from Model
+---------------------------
+
+.. code-block:: es5
+
+    Backbone.Model.extend({
+        foo: function(bar) {
+            this.save({
+                a: 1,
+                b: 2
+            });
+            return {'hello': 'world'};
+        }
+    });
+
+    Backbone.Marionette.LayoutView.extend({
+        initialize: function() {
+            this.listenTo(this.model, 'foo', this.handleFoo);
+        },
+        handleFoo: function(obj) {
+            console.log(obj) // {'hello': 'world'}
+        }
+    });
+
+More notes located in hacking/learning-backbone/index.html
                 
 
 .. [1] http://www.objectplayground.com/

@@ -83,6 +83,11 @@ Lock Encrypted Directory::
 
     tar cz vault/ | openssl enc -aes-256-cbc -out ~/vault.tar.gz.dat; rm -r ~/vault
 
+gpg / pgp
+---------
+
+gpg --output fname.org.gpg --symmetric fname.org
+
 
 Screen Capture
 ==============
