@@ -359,7 +359,11 @@ constructor.
 Nodejs
 ======
 
+
+
 Node virtual machine
+--------------------
+
 https://github.com/creationix/nvm
 
 .. note::
@@ -536,17 +540,111 @@ Feature Detection
     }
 
 Promise
-=======
+-------
 
 Promise `Anit-patterns <http://taoofcode.net/promise-anti-patterns/>`_
 
 jQuery
-======
+------
 
 All jQuery Ajax methods return Deferred objects, and then provides a single callback. [3]_
 
+RxJS
+----
+
+JavaScript is multithreaded so don’t need to worry about shared state running through different threads. [9]_
+
+Traversing a stream is semantically equivalent as subscribing to it
+
+ES6
+===
+
+method definitions
+------------------
+
+example via [8]_
+
+.. code-block:: es5
+
+    var obj = {
+        foo: function() {}
+    }
+
+.. code-block:: es6
+
+    var obj = {
+        foo() {}
+    };
+
+computed properties
+-------------------
+
+example via [8]_
+
+.. code-block:: es5
+
+    var foo='someName';
+    var obj = {};
+    obj[foo] = 42;
+
+.. code-block:: es6
+
+    var foo='someName';
+    var obj = {
+        [foo]: 42
+    };
+
+    //method definition using computed properties
+    var obj = {
+        [foo]() {}
+    };
+
+destructuring
+-------------
+
+example via [8]_
+
+.. code-block:: es5
+
+    function foo(obj) {
+        var username = obj.username;
+        var res = obj.res;
+    }
+
+.. code-block:: es6
+
+    function foo({username, res}) {}
 
 
+Backbone.js
+===========
+
+Listen to events from Model
+---------------------------
+
+.. code-block:: es5
+
+    Backbone.Model.extend({
+        foo: function(bar) {
+            this.save({
+                a: 1,
+                b: 2
+            });
+            return {'hello': 'world'};
+        }
+    });
+
+    Backbone.Marionette.LayoutView.extend({
+        initialize: function() {
+            this.listenTo(this.model, 'foo', this.handleFoo);
+        },
+        handleFoo: function(obj) {
+            console.log(obj) // {'hello': 'world'}
+        }
+    });
+
+More notes located in hacking/learning-backbone/index.html
+                
 
 .. [1] http://www.objectplayground.com/
 .. [2] http://jsfiddle.net/codepo8/cb7pG/3/light/
@@ -555,3 +653,5 @@ All jQuery Ajax methods return Deferred objects, and then provides a single call
 .. [5] http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html
 .. [6] https://javascriptweblog.wordpress.com/2011/02/07/truth-equality-and-javascript/#more-2108
 .. [7] http://stackoverflow.com/questions/7365172/semicolon-before-self-invoking-function/7365214#7365214
+.. [8] http://stackoverflow.com/questions/31382489/es6-hash-array-index-function-call-mixed-syntax
+.. [9] RxJS in Action by Paul P. Daniels

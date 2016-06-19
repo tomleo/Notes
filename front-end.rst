@@ -69,21 +69,30 @@ http://codepen.io/SitePoint/pen/qLnpm
 
 transform
 ---------
-transform: skew(20deg) scale(1.5); }
-transform: rotateX(50deg) scale(2) rotateZ(20deg);
+
+.. code-block:: css
+
+    transform: skew(20deg) scale(1.5); }
+    transform: rotateX(50deg) scale(2) rotateZ(20deg);
 
 transition
 ----------
-element { transition: property, property time delay; }
+
+.. code-block:: css
+
+    element { transition: property, property time delay; }
 
 animation
 ---------
-@keyframes whoosh {
-  0% { transform: scale(0.5) translate(0,0); }
-  50% { transform: scale(2)  translate(50%,0);  }
-  100% {transform: scale(0.5) translate(100%,0)}
-}
-#animate {animation: whoosh 3s infinite alternate linear;}
+
+.. code-block:: css
+    @keyframes whoosh {
+      0% { transform: scale(0.5) translate(0,0); }
+      50% { transform: scale(2)  translate(50%,0);  }
+      100% {transform: scale(0.5) translate(100%,0)}
+    }
+
+    #animate {animation: whoosh 3s infinite alternate linear;}
 
 flexbox
 -------
@@ -190,9 +199,6 @@ An alternative is to just use tel
 This will give you a cross-device 10-key keypad
 
 
-
-
-
 Bootstrap 3
 ===========
 
@@ -206,6 +212,25 @@ D3
 ========
 
 IE8/IE9 Shim for D3: https://github.com/shawnbot/aight
+
+SVG
+=====
+
+d - attribute
+-------------
+string which contains a series of path descriptions
+
+path descriptions:
+- Moveto: "pick up the pen and move it" 
+- Lineto: moves line from current position to specified location
+- Curveto: Bezier curves
+- Arcto: elliptical curve
+- ClosePath: draw a straight line from the current position to the first point in the path
+
+upper-case command: arguments as absolute positions
+lower-case command: specify points relative to current position
+
+d works with <path> and <glyph>
 
 Networking
 ==========
