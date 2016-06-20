@@ -25,6 +25,7 @@ Solution [3]_
     # Update working copy to reflect the new commit
     git reset --hard
 
+
 Revert commit 
 -------------
 
