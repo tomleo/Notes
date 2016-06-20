@@ -1,3 +1,8 @@
+Haskell
+=======
+
+
+
 The Joy of Clojure
 ==================
 
