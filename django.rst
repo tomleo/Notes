@@ -73,7 +73,7 @@ Test Fixtures
 -------------
 
 Testing and Django by Carl Meyer (PyCon2012)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+````````````````````````````````````````````
 
 `YouTube <http://youtu.be/ickNQcNXiS4>`_.
 
@@ -117,7 +117,7 @@ Generally you redirect after a successful POST request in your view, so how
 should you test this?
 
 Method
-~~~~~~
+``````
 
 By adding `folllow=True` to your post request the client will add an attribute
 redirect_chain to the response object::
@@ -140,7 +140,7 @@ should be a 302 redirect.
     self.assertEqual(post_resp.redirect_chain[0][1], 302)
 
 The Shortcut
-~~~~~~~~~~~~
+````````````
 
 .. code-block:: python
 
@@ -179,7 +179,9 @@ Python
 ------
 
 **Always put Unicode in unit tests**
-Useful python functions, not encoding in unicode is better than ascii [2]_::
+Useful python functions, not encoding in unicode is better than ascii [2]_
+
+.. code-block:: pycon
 
     >> i_uni = u'Ivan Krstić'
     >> i_uni
@@ -242,6 +244,7 @@ least one row in the database matches.
 you can evaluate a queryset without caching the results by calling iterator()
 
 .. code-block:: python
+
     pet_set = Pet.objects.all()
     for pet in pet_set.iterator():
         print(pet.name)
@@ -379,8 +382,9 @@ low to high
 django.db.models.loading
 ------------------------
 
-get_model(app_label, model_name) #Returns a model class
-get_app(app_label) #Returns applications models module
+``get_model(app_label, model_name)`` Returns a model class
+
+``get_app(app_label)`` Returns apps models module
 
 .. code-block:: python
 
@@ -576,7 +580,9 @@ Remove Default value from ModelChoiceField
 
 Lets say you have the following bacon types ['maple', 'smoked', uncured'] when
 the ModelChoiceField will use a Select widget. The problem is that the HTML
-returned is::
+returned is
+
+.. code-block:: html
 
     <select>
         <option value="" selected="selected">---------</option>
