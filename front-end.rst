@@ -89,6 +89,7 @@ animation
 ---------
 
 .. code-block:: css
+
     @keyframes whoosh {
       0% { transform: scale(0.5) translate(0,0); }
       50% { transform: scale(2)  translate(50%,0);  }
@@ -118,7 +119,7 @@ SASS
 mixins
 ------
 
-.. code-block:: sass
+.. code-block:: scss
 
     //SCSS
     @mixin bubbles($name) {
@@ -128,6 +129,8 @@ mixins
     block {
         @include bubbles($name);
     }
+
+.. code-block:: sass
 
     //SASS
     =bubbles($name)
@@ -236,9 +239,27 @@ lower-case command: specify points relative to current position
 
 d works with <path> and <glyph>
 
+Inline SVG
+----------
+
+An SVG document will look like this:
+
+.. code-block:: html
+
+    <?xml version="1.0" ?>
+    <svg enable-background="new 0 0 500 500" class="close-icon" version="1.1" viewBox="0 0 500 500" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+
+It's important to note that the ``<?xml ?>`` line is not required when embedding the SVG into an HTML document [4]_.
+
+::
+
+    Well-formed XML documents contain only one prolog. So they should be
+    removed if you are embedding one SVG inside another.
 
 
 
 .. [1] http://alistapart.com/article/a-pixel-identity-crisis
 .. [2] http://developer.android.com/guide/practices/screens_support.html#density-independence
 .. [3] http://www.smashingmagazine.com/2015/05/05/form-inputs-browser-support-issue/ 
+.. [4] http://stackoverflow.com/a/27414586/465270
