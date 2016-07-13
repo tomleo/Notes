@@ -25,4 +25,12 @@ Stock Photography
 - **http://www.gratisography.com/**
 
 
+SEO
+===
+
+- https://support.google.com/webmasters/answer/34444?hl=en
+- Quality guidelines https://support.google.com/webmasters/answer/35769
+- Doorway pages https://support.google.com/webmasters/answer/35769
+  
+
 .. [1] http://thefreelancestrategist.com/financing-your-first-steps-as-a-full-time-freelancer/3354
