@@ -3,6 +3,13 @@ Haskell
 
 
 
+.. code-block:: haskell
+
+    let test = [x | x <- [1..10]]
+
+
+
+
 The Joy of Clojure
 ==================
 
@@ -19,6 +26,7 @@ pg19
 ----
 
 ::
+
     Polymorphism is the ability of a function or method to perform different actions
     depending on the type of its arguments or a target object. Clojure provides polymor-
     phism via protocols,13 which let you attach a set of behaviors to any number of existing
@@ -63,6 +71,7 @@ Lists
 .. code-block:: clojure
 
     (foxtrot uniform charlie kilo)
+
 
 :: 
 
