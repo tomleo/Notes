@@ -1,0 +1,1 @@
+I would like to do `s3cmd get $col2 $dropbox_name` to download files from s3. This doesn't seem to work, I get the following error instead `ERROR: Parameter problem: Expecting S3 URI instead of 'MyPower'`  The actual filename is `Gingrich MyPower proposal 2.pdf`

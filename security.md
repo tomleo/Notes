@@ -1,5 +1,9 @@
 # Security
 
+## Asymetric Hashing Functions
+
+[Why are hash functions one way?](http://security.stackexchange.com/questions/11717/why-are-hash-functions-one-way-if-i-know-the-algorithm-why-cant-i-calculate-t/19658#19658)
+
 ## Key Stretching
 - makes weak keys more secure by increasing the time it takes to test each possible key
 - creates an enhanced key

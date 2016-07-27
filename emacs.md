@@ -24,6 +24,14 @@ M-x M-e::
 
   
 Evil
-----
+====
 
+evil-vimish-fold
+----------------
+
+[github](https://github.com/alexmurray/evil-vimish-fold)
+
+`zf` Create Fold
+`zd` Delete Fold
+`za` Toggle Fold
 

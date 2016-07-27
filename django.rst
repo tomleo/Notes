@@ -4,7 +4,7 @@ Django Notes
 
 .. contents:: Topics
     :depth: 2
-
+            
 Debugging
 =========
 
@@ -639,7 +639,8 @@ Tooltips for Radio Buttons Items (Chocies Field)
     choices = (
         ('1', mark_safe(u'<em>HTML</em><span>Is being put</span> inside tooltip')),
         ('2', mark_safe(u'<p>Tooltip logic could go here</p>')
-    )
+                )
+
 
 
 
