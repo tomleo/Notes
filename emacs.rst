@@ -16,3 +16,8 @@ C-b Backwards
 M-f Move Foward a word
 M-b Move Backwards a word
 
+
+M-x M-e::
+  Eval Buffer
+
+  This is super usefull for testing things in ``**scratch**`` buffer

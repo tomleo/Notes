@@ -1,3 +1,6 @@
+Design
+======
+
 Layout and Grids
 ----------------
 
@@ -86,6 +89,7 @@ animation
 ---------
 
 .. code-block:: css
+
     @keyframes whoosh {
       0% { transform: scale(0.5) translate(0,0); }
       50% { transform: scale(2)  translate(50%,0);  }
@@ -115,7 +119,7 @@ SASS
 mixins
 ------
 
-.. code-block:: sass
+.. code-block:: scss
 
     //SCSS
     @mixin bubbles($name) {
@@ -125,6 +129,8 @@ mixins
     block {
         @include bubbles($name);
     }
+
+.. code-block:: sass
 
     //SASS
     =bubbles($name)
@@ -174,6 +180,7 @@ The resulting CSS will look like this
     .skioo-red {
       font-size: 1em;
     }
+
 
 Forms
 =====
@@ -238,7 +245,7 @@ Networking
 Delay packets
 -------------
 
-add fixed 250ms delay to all outgoing packets on Ethernet interface eth1 [3]_:
+add fixed 250ms delay to all outgoing packets on Ethernet interface eth1 [4]_:
 
 .. code-block:: terminal256
     
@@ -261,8 +268,27 @@ Limit bandwidth
 
     sudo wondershaper clear eth1
 
+Inline SVG
+----------
+
+An SVG document will look like this:
+
+.. code-block:: html
+
+    <?xml version="1.0" ?>
+    <svg enable-background="new 0 0 500 500" class="close-icon" version="1.1" viewBox="0 0 500 500" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+
+It's important to note that the ``<?xml ?>`` line is not required when embedding the SVG into an HTML document [5]_.
+
+::
+
+    Well-formed XML documents contain only one prolog. So they should be
+    removed if you are embedding one SVG inside another.
+
 
 .. [1] http://alistapart.com/article/a-pixel-identity-crisis
 .. [2] http://developer.android.com/guide/practices/screens_support.html#density-independence
 .. [3] http://www.smashingmagazine.com/2015/05/05/form-inputs-browser-support-issue/ 
-.. [3] http://coreygoldberg.blogspot.com/2015/04/linux-simulating-degraded-network.html
+.. [4] http://coreygoldberg.blogspot.com/2015/04/linux-simulating-degraded-network.html
+.. [5] http://stackoverflow.com/a/27414586/465270

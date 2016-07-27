@@ -11,6 +11,9 @@ Search Django::
     BASE_PATH="/home/tom/energysage/env/lib/python2.7/site-packages"
     find "$BASE_PATH/django" -type f -not -path '*/\.*' -name '*.py' -print0 | xargs -0 grep -C 3 -A 2 "Search String"
 
+Search for a filename using regex::
+    find ./ -type f -regex '.+[Cc]ordova.+' -not -path '*/\.*'
+
 Copying
 =======
 
