@@ -1,5 +1,4 @@
-Basic Controls
-==============
+# Basic Controls
 
 C -> CTL Key
 M -> ALT key
@@ -21,13 +20,21 @@ M-x M-e::
   Eval Buffer
 
   This is super usefull for testing things in ``**scratch**`` buffer
+  
+## Markdown Mode
+
+| Key       | Function                         |
+|-----------|----------------------------------|
+| C-c C-c l |       markdown-live-preview-mode |
+| C-c C-c p |      markdown-preview            |
+| C-c C-c v |      markdown-export-and-preview |
+
 
   
-Evil
-====
+## Evil
 
-evil-vimish-fold
-----------------
+### evil-vimish-fold
+
 
 [github](https://github.com/alexmurray/evil-vimish-fold)
 

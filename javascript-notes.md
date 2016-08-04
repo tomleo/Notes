@@ -1,18 +1,17 @@
+# Language
 use strict mode in javascript
-
-Type
-====
+## Type
 
 typeof will always return "object" for native non callable objects.
 
-``` {.sourceCode .javascript}
+``` javascript
 >> [typeof null, null instanceof Object]
 ["object", false]
 ```
 
 the + operator has higher precedence than the ternary one
 
-``` {.sourceCode .javascript}
+``` javascript
 >> var val = 'smtg';
 >> console.log('Value is ' + (val === 'smtg') ? 'Something' : 'Nothing');
 Something 
@@ -20,19 +19,18 @@ Something
 
 The + sign concatenates strings, the - sign causes a type cast
 
-``` {.sourceCode .javascript}
+``` javascript
 >> '5' + 3
 "53"
 >> '5' - 3
 2
 ```
 
-Comparison
-----------
+### Comparison
 
 [^1]
 
-``` {.sourceCode .javascript}
+``` javascript
 // Objects evaluate to true
 if( {} ) {
     console.log("Really?"); // => Really?
@@ -43,13 +41,12 @@ Boolean({}) => true
 Boolean(null, NaN, 0, '', undefined) => false
 ```
 
-Scope
-=====
+## Scope
 
 The var declaration is hoisted to the function scope, but the
 initialization is not.
 
-``` {.sourceCode .javascript}
+``` javascript
 var name = 'World!';
 (function () {
     if (typeof name === 'undefined') {
@@ -65,7 +62,7 @@ Goodbye Jack
 Local vs. Global Functions, y is an automatic global, not a function
 local one like x
 
-``` {.sourceCode .javascript}
+``` javascript
 (function(){
   var x = y = 1;
 })();
@@ -75,13 +72,12 @@ console.log(x);
 RefereceError: x is not defined
 ```
 
-Hoisting
-========
+## Hoisting
 
 Variable declarations get hoisted to the top of their scope, their
 assignment does not [^2]
 
-``` {.sourceCode .javascript}
+``` javascript
 function example() {
     console.log(declaredButNotAssigned); // => undefined
     var declaredButNotAssigned = true;
@@ -97,7 +93,7 @@ function example() {
 Anonymouse function expressions hoist their variable name, but not the
 function assignment
 
-``` {.sourceCode .javascript}
+``` javascript
 function example() {
   console.log(anonymous); // => undefined
 
@@ -136,7 +132,7 @@ function example() {
 
 Function declarations hoist their name and function body
 
-``` {.sourceCode .javascript}
+``` javascript
 function example() {
   superPower(); // => Flying
 
@@ -146,12 +142,11 @@ function example() {
 }
 ```
 
-Switch Statement
-================
+## Switch Statement
 
 switch uses === internally and new String(x) !== x
 
-``` {.sourceCode .javascript}
+``` javascript
 function showCase(value) {
     switch(value) {
     case 'A':
@@ -171,13 +166,12 @@ showCase(new String('A'));
 Do not know!
 ```
 
-How to define functions and objects in JS
-=========================================
+## How to define functions and objects in JS
 
 To create an object you can use Object.create function or simply write
 the function explicitly like below.
 
-``` {.sourceCode .javascript}
+``` javascript
 function myMethod() { return this.val; }
 var object1 = {
     get: myMethod,
@@ -193,7 +187,7 @@ var object3 = {
 };
 ```
 
-``` {.sourceCode .console}
+``` console
 >>> this.object1
 Object { val=42, get=myMethod()}
 >>> this.object2
@@ -204,7 +198,7 @@ Object { val=42}
 
 It should be noted that name is a read only property for example
 
-``` {.sourceCode .javascript}
+``` javascript
 function foo() { }
 var oldName = foo.name;
 foo.name = "bar";
@@ -212,14 +206,13 @@ foo.name = "bar";
 ["foo", "foo"]
 ```
 
-Prototypal Inheritance
-======================
+## Prototypal Inheritance
 
 When looking for attributes JS will go up the inheritance chain until it
 finds what it is looking for. The Object.create(obj) is a way to create
 an object based on obj prototype.
 
-``` {.sourceCode .javascript}
+``` javascript
 var parent = {
     get: function fn() {
         return this.val;
@@ -232,7 +225,7 @@ child.val = 25;
 var grandchild = Object.create(child);
 ```
 
-``` {.sourceCode .console}
+``` console
 >>> parent.get();
 42 //parent.get() -> fn() which looks for -> this.val=42
 
@@ -248,7 +241,7 @@ var grandchild = Object.create(child);
 
 The following code example evaluates to false
 
-``` {.sourceCode .javascript}
+``` javascript
 function f() {}
 var a = f.prototype, b = Object.getPrototypeOf(f);
 a === b
@@ -258,10 +251,9 @@ This is because f.prototype is the object that will become the parent of
 any objects created with new f while Object.getPrototypeOf returns the
 parent in the inheritance hierarchy.
 
-Polymorphism
-============
+## Polymorphism
 
-``` {.sourceCode .javascript}
+``` javascript
 var answer = {
     get: function fn1() {
         return this.val;
@@ -275,17 +267,16 @@ firmAnswer.get = function fn2() {
 };
 ```
 
-``` {.sourceCode .console}
+``` console
 >>> answer.get();
 42
 >>> firmAnswer.get();
 "42!!"
 ```
 
-Getting the this right or... getting the right this
----------------------------------------------------
+## Getting the this right or... getting the right this
 
-``` {.sourceCode .javascript}
+``` javascript
 var hello = {
     get: function fn1() {
         return this.val;
@@ -305,14 +296,14 @@ goodByeWorld.get = function fn2() {
 goodByeWorld.val = "Goodbye";
 ```
 
-``` {.sourceCode .console}
+``` console
 >>> helloWorld.get()
 "Hello World"
 >>> goodByeWorld.get()
 "Goodbye World"
 ```
 
-``` {.sourceCode .javascript}
+``` javascript
 // variables referencing "this" should be named _this
 function() {
   var _this = this;
@@ -322,13 +313,12 @@ function() {
 }
 ```
 
-Using Constructors
-------------------
+## Using Constructors
 
 Instead of defining a class' variables you can pass variables to a
 constructor.
 
-``` {.sourceCode .javascript}
+``` javascript
 var helloPrototype = {
     constructor: function fn0(val) {
         this._val = val;
@@ -344,7 +334,7 @@ helloWorldPrototype.get = function fn2() {
 };
 ```
 
-``` {.sourceCode .console}
+``` console
 var hello = Object.create(helloPrototype);
 helloWorld.constructor("Hello");
 helloWorld.get();
@@ -354,6 +344,16 @@ helloWorld.constructor("Hello");
 helloWorld.get();
 ```
 
+## Arrays
+
+``` javascript
+var x = [1,2,3,]; //ERROR
+var y = {'a': 1, 'b': 2, 'c': 3,}; //ERROR
+```
+
+If, when defining an array or an object, you leave a trailing comma
+after the last item in your collection, IE will fail to parse your
+javascript file:
 # Modules
 ## Asynchronous Definition
 
@@ -379,17 +379,16 @@ If the value of "require", "exports", or "module" appear in the dependency
 list, the argument should be resolved to the corresponding free variable as
 defined by the CommonJS modules specification. This argument is optional. If
 omitted, it should default to ["require", "exports", "module"].
-```  - [^12]
+```
+[^12]
 
 
 
-Nodejs
-======
+# Nodejs
 
-Node virtual machine
---------------------
+## Node virtual machine
 
-<https://github.com/creationix/nvm>
+https://github.com/creationix/nvm
 
 > **note**
 >
@@ -398,19 +397,17 @@ Node virtual machine
 
 Left off at 15:00 [^3]
 
-Installing Node
----------------
+## Installing Node
 
 curl -sL <https://deb.nodesource.com/setup> | sudo bash -sudo apt-get
 install -y nodejs
 
-IO
---
+## IO
 
 All synchronous (or blocking) filesystem methods in the fs module end
 with 'Sync'.
 
-``` {.sourceCode .javascript}
+``` javascript
 // return a Buffer object containing the complete contents of the file
 fs.readFileSync('/path/to/file')
 ```
@@ -420,31 +417,18 @@ arrays of data, whether it be ascii, binary or some other format. Buffer
 objects can be converted to strings by simply calling the toString()
 method on them.
 
-``` {.sourceCode .javascript}
+``` javascript
 var str = buf.toString().
 ```
 
-Arrays
-======
 
-``` {.sourceCode .javascript}
-var x = [1,2,3,]; //ERROR
-var y = {'a': 1, 'b': 2, 'c': 3,}; //ERROR
-```
 
-If, when defining an array or an object, you leave a trailing comma
-after the last item in your collection, IE will fail to parse your
-javascript file:
-
-Design Patterns
-===============
-
-IIFE (Immediately-Invoked Function Expression)
-----------------------------------------------
+# Design Patterns
+## IIFE (Immediately-Invoked Function Expression)
 
 [^4]
 
-``` {.sourceCode .javascript}
+``` javascript
 // good (guards against the function becoming an argument when two files with IIFEs are concatenated)
 ;(function() {
   var name = 'Skywalker';
@@ -452,13 +436,12 @@ IIFE (Immediately-Invoked Function Expression)
 })();
 ```
 
-Shifting of classes
--------------------
+## Shifting of classes
 
 If you are going to be adding/removing classes of an element you should
 cache them.
 
-``` {.sourceCode .javascript}
+``` javascript
 var navright = document.querySelector('#right');
 var navleft = document.querySelector('#left');
 var navup = document.querySelector('#up');
@@ -468,7 +451,7 @@ var navdown = document.querySelector('#down');
 Furthermore if you are going to be adding a class to indicate some
 styling state of an element you should do the following [^5]
 
-``` {.sourceCode .javascript}
+``` javascript
 var current = null;
 document.body.addEventListener('click', function(ev) {
     if (ev.target.tagName === 'BUTTON') {
@@ -481,13 +464,12 @@ document.body.addEventListener('click', function(ev) {
 }, false);
 ```
 
-Module pattern
---------------
+## Module pattern
 
 This pattern allows for public and private variables as well as public
 and private methods via a function closure. [^6]
 
-``` {.sourceCode .javascript}
+``` javascript
 var myNamespace = (function () {
 
   var myPrivateVar, myPrivateMethod;
@@ -520,20 +502,19 @@ var myNamespace = (function () {
 })();
 ```
 
-Naming Functions
-----------------
+## Naming Functions
 
 Naming your functions results in easier to read stack traces
 
-``` {.sourceCode .javascript}
+``` javascript
 var log = function log(msg) {
   console.log(msg);
 };
 ```
 
-Method Chaining
----------------
+## Method Chaining
 
+``` javascript
 Jedi.prototype.jump = function() {
 
 :   this.jumping = true; return this;
@@ -547,11 +528,12 @@ Jedi.prototype.setHeight = function(height) {
 };
 
 var luke = new Jedi(); luke.jump().setHeight(20);
+```
 
-Feature Detection
------------------
+## Feature Detection
 
-``` {.sourceCode .javascript}
+
+``` javascript
 // Dependency Testing
 // via Quo vadis, JavaScript? Devday.pl keynote by Christian Heilmann
 if ('visibilityState' in document) {
@@ -565,57 +547,50 @@ if ('visibilityState' in document) {
 }
 ```
 
-Promise
--------
+## Promise
 
 Promise [Anit-patterns](http://taoofcode.net/promise-anti-patterns/)
 
-jQuery
-------
+## jQuery
 
 All jQuery Ajax methods return Deferred objects, and then provides a
 single callback. [^7]
 
-RxJS
-----
+## RxJS
 
 JavaScript is multithreaded so don’t need to worry about shared state
 running through different threads. [^8]
 
 Traversing a stream is semantically equivalent as subscribing to it
 
-ES6
-===
-
-method definitions
-------------------
+# ES6
+## method definitions
 
 example via [^9]
 
-``` {.sourceCode .es5}
+``` es5
 var obj = {
     foo: function() {}
 }
 ```
 
-``` {.sourceCode .es6}
+``` es6
 var obj = {
     foo() {}
 };
 ```
 
-computed properties
--------------------
+## computed properties
 
 example via [^10]
 
-``` {.sourceCode .es5}
+``` es5
 var foo='someName';
 var obj = {};
 obj[foo] = 42;
 ```
 
-``` {.sourceCode .es6}
+``` es6
 var foo='someName';
 var obj = {
     [foo]: 42
@@ -627,29 +602,68 @@ var obj = {
 };
 ```
 
-destructuring
--------------
+## destructuring
 
 example via [^11]
 
-``` {.sourceCode .es5}
+``` es5
 function foo(obj) {
     var username = obj.username;
     var res = obj.res;
 }
 ```
 
-``` {.sourceCode .es6}
+``` es6
 function foo({username, res}) {}
 ```
 
-Backbone.js
-===========
+## Method Definitions
 
-Listen to events from Model
----------------------------
+I sometimes unintentionally write JS like this
 
-``` {.sourceCode .es5}
+``` javascript
+
+object_name {
+    method_name(arg) {}
+}
+
+```
+
+instead of 
+
+``` javascript
+
+object_name {
+    method_name: function(arg) {}
+}
+
+```
+
+Here's an example of this in action http://codepen.io/tomleo/pen/QEVwBz
+
+The issue with this "syntax error" is that it's actually
+[valid ES6 syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Method_definitions)
+and won't throw an error when developing in Chrome or Firefox. However
+it's not supported in IE or Safari. It also causes yuglify to choke
+during deployment.
+
+JavaScript linting tools like eslint are handy in catching these issues.
+
+
+
+
+
+
+
+
+
+
+# Backbone.js
+## Models
+
+### Listen to events from Model
+
+``` es5
 Backbone.Model.extend({
     foo: function(bar) {
         this.save({
@@ -670,8 +684,43 @@ Backbone.Marionette.LayoutView.extend({
 });
 ```
 
+## Views
+
+### Rendering
+
+To create elements not attached to the DOM:
+
+``` javascript
+Backbone.View.extend({
+    tagName: 'li',
+});
+```
+
+To create elements with container already in the DOM:
+
+``` javascript
+Backbone.View.extend({
+    el: '#propertyList',
+});
+```
+### setElement
+
+`setElement` will create a cached `$el` reference for you, moving the
+delegated events for a view from the old element to the new one.
+
+``` javascript
+var button1 = $('<button></button>');
+var button2 = $('<button></button>');
+var view = new View({el: button1});
+view.setElement(button2);
+```
+
 More notes located in hacking/learning-backbone/index.html
 
+
+
+
+# Ref
 [^1]: <https://javascriptweblog.wordpress.com/2011/02/07/truth-equality-and-javascript/#more-2108>
 
 [^2]: <http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html>
