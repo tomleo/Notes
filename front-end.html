@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>front-end.html</title>
+
+</head>
+
+<body>
+
+<h1 id="design">Design</h1>
+<h2 id="layout-and-grids">Layout and Grids</h2>
+<ul>
+<li><a href="http://susy.oddbird.net/" class="uri">http://susy.oddbird.net/</a></li>
+<li><a href="http://breakpoint-sass.com/" class="uri">http://breakpoint-sass.com/</a></li>
+</ul>
+<dl>
+<dt>visibility: hidden</dt>
+<dd><p>hides the element, but it still takes up space in the layout.</p>
+</dd>
+</dl>
+<h2 id="typography">Typography</h2>
+<p><a href="http://type-scale.com/" class="uri">http://type-scale.com/</a></p>
+<h1 id="selectors">Selectors</h1>
+<h2 id="adjacent-general-sibling-combinator">Adjacent &amp; General sibling combinator</h2>
+<p><a href="http://cdpn.io/zCGnc" class="uri">http://cdpn.io/zCGnc</a></p>
+<h2 id="not-psudoselector">Not Psudoselector</h2>
+<p><a href="http://cdpn.io/Ebdav" class="uri">http://cdpn.io/Ebdav</a></p>
+<h1 id="dimensions">Dimensions</h1>
+<p>hardware pixel: smallest unit a screen can support. It cannot be stretched, skewed, or subdivided reference pixel: optically consistent unit, w3c considers a pixel a reference pixel <a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> density independent pixel (dip): basically scales pixels up on higher dpi devices so they are consistent with devices with lower dpi. <a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+<h2 id="vertical-percentages-are-relative-to-container-width-not-height">Vertical Percentages are Relative to Container Width, Not Height</h2>
+<p><a href="http://codepen.io/SitePoint/pen/qLnpm" class="uri">http://codepen.io/SitePoint/pen/qLnpm</a></p>
+<h2 id="media-queries">Media Queries</h2>
+<p>device-pixel-ratio: media query identifier to determine if pixels are being scaled.</p>
+<p>device-width: identify the screen width width: width of the viewport</p>
+<p>If you use em's to represent dimensions then scaling dimensions based on a devices specs is as simple as changing the base font-size.</p>
+<h1 id="css3">CSS3</h1>
+<h2 id="background">background</h2>
+<pre><code>    background: [background-color] [background-image] [background-repeat]
+                [background-attachment] [background-position] / [ background-size]
+                [background-origin] [background-clip];</code></pre>
+<p><a href="http://codepen.io/SitePoint/pen/qLnpm" class="uri">http://codepen.io/SitePoint/pen/qLnpm</a></p>
+<h2 id="transform">transform</h2>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">transform<span class="dv">:</span> skew(20deg) scale(1<span class="fl">.5</span>); }
+transform<span class="dv">:</span> rotateX(50deg) scale(2) rotateZ(20deg);</code></pre></div>
+<h2 id="transition">transition</h2>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">element <span class="kw">{</span> <span class="kw">transition:</span> property, property time delay<span class="kw">;</span> <span class="kw">}</span></code></pre></div>
+<h2 id="animation">animation</h2>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">@keyframes whoosh <span class="kw">{</span>
+  <span class="er">0%</span> <span class="er">{</span> <span class="kw">transform:</span> scale(<span class="dt">0.5</span>) translate(<span class="dt">0</span>,<span class="dt">0</span>)<span class="kw">;</span> <span class="kw">}</span>
+  50% <span class="kw">{</span> <span class="kw">transform:</span> scale(<span class="dt">2</span>)  translate(<span class="dt">50%</span>,<span class="dt">0</span>)<span class="kw">;</span>  <span class="kw">}</span>
+  100% <span class="kw">{transform:</span> scale(<span class="dt">0.5</span>) translate(<span class="dt">100%</span>,<span class="dt">0</span>)<span class="kw">}</span>
+}
+
+<span class="fl">#animate</span> <span class="kw">{animation:</span> whoosh <span class="dt">3s</span> infinite alternate linear<span class="kw">;}</span></code></pre></div>
+<h2 id="flexbox">flexbox</h2>
+<p><a href="http://www.sketchingwithcss.com/samplechapter/cheatsheet.html" class="uri">http://www.sketchingwithcss.com/samplechapter/cheatsheet.html</a></p>
+<h1 id="canvas">canvas</h1>
+<h2 id="irregular-shape-rollover">irregular shape rollover</h2>
+<p><a href="https://github.com/codepo8/irregular-shape-rollover" class="uri">https://github.com/codepo8/irregular-shape-rollover</a></p>
+<h1 id="sass">SASS</h1>
+<h2 id="mixins">mixins</h2>
+<pre class="scss"><code>@mixin bubbles($name) {
+    //Stuff Goes Here
+}
+
+block {
+    @include bubbles($name);
+}</code></pre>
+<pre class="sass"><code>=bubbles($name)
+    //Stuff Goes Here
+
+block
+    +bubbles($name)</code></pre>
+<h2 id="list-things">list things</h2>
+<p>Dictionary Like Rule Creation</p>
+<pre class="scss"><code>$prefix: skioo;
+$color-list: (
+  green #7AEA8B,
+  yellow #F6FAA2,
+  blue #1902E8,
+  red #E80202
+);
+
+@each $value in $color-list {
+  .#{$prefix}-#{nth($value, 1)} {
+    font-size: 1em;
+  }
+}</code></pre>
+<p>The resulting CSS will look like this</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="fl">.skioo-green</span> <span class="kw">{</span>
+  <span class="kw">font-size:</span> <span class="dt">1em</span><span class="kw">;</span>
+<span class="kw">}</span>
+
+<span class="fl">.skioo-yellow</span> <span class="kw">{</span>
+  <span class="kw">font-size:</span> <span class="dt">1em</span><span class="kw">;</span>
+<span class="kw">}</span>
+
+<span class="fl">.skioo-blue</span> <span class="kw">{</span>
+  <span class="kw">font-size:</span> <span class="dt">1em</span><span class="kw">;</span>
+<span class="kw">}</span>
+
+<span class="fl">.skioo-red</span> <span class="kw">{</span>
+  <span class="kw">font-size:</span> <span class="dt">1em</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<h1 id="forms">Forms</h1>
+<h2 id="number-input">Number Input</h2>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;number&quot;</span><span class="ot"> pattern=</span><span class="st">&quot;[0-9]*&quot;</span><span class="ot"> step=</span><span class="st">&quot;any&quot;</span><span class="kw">&gt;</span></code></pre></div>
+<p>iOS requires the pattern attribute in order to look like the android keyboard <a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>.</p>
+<p>on Desktop you can't controll the keyboard, so a user may add a dollar sign (which isn't an alpha numeric). step=&quot;any&quot; should fix this issue in Chrome <a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>.</p>
+<p>An alternative is to just use tel</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;tel&quot;</span><span class="kw">&gt;</span></code></pre></div>
+<p>This will give you a cross-device 10-key keypad</p>
+<h1 id="bootstrap-3">Bootstrap 3</h1>
+<p>xs = phone sm = tablets md = desktops lg = large desktops</p>
+<h1 id="d3">D3</h1>
+<p>IE8/IE9 Shim for D3: https://github.com/shawnbot/aight</p>
+<h1 id="svg">SVG</h1>
+<h2 id="d---attribute">d - attribute</h2>
+<p>string which contains a series of path descriptions</p>
+<p>path descriptions: - Moveto: &quot;pick up the pen and move it&quot; - Lineto: moves line from current position to specified location - Curveto: Bezier curves - Arcto: elliptical curve - ClosePath: draw a straight line from the current position to the first point in the path</p>
+<p>upper-case command: arguments as absolute positions lower-case command: specify points relative to current position</p>
+<p>d works with &lt;path&gt; and &lt;glyph&gt;</p>
+<h1 id="networking">Networking</h1>
+<h2 id="delay-packets">Delay packets</h2>
+<p>add fixed 250ms delay to all outgoing packets on Ethernet interface eth1 <a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>:</p>
+<pre class="terminal256"><code>sudo tc qdisc add dev eth1 root netem delay 250ms</code></pre>
+<p>turn off</p>
+<pre class="terminal256"><code>sudo tc qdisc del dev eth1 root netem </code></pre>
+<h2 id="limit-bandwidth">Limit bandwidth</h2>
+<pre class="terminal256"><code>sudo wondershaper eth1 256 128</code></pre>
+<pre class="terminal256"><code>sudo wondershaper clear eth1</code></pre>
+<h2 id="inline-svg">Inline SVG</h2>
+<p>An SVG document will look like this:</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;?xml</span> version=&quot;1.0&quot; <span class="kw">?&gt;</span>
+<span class="kw">&lt;svg</span><span class="ot"> enable-background=</span><span class="st">&quot;new 0 0 500 500&quot;</span><span class="ot"> class=</span><span class="st">&quot;close-icon&quot;</span><span class="ot"> version=</span><span class="st">&quot;1.1&quot;</span><span class="ot"> viewBox=</span><span class="st">&quot;0 0 500 500&quot;</span><span class="ot"> xml:space=</span><span class="st">&quot;preserve&quot;</span><span class="ot"> xmlns=</span><span class="st">&quot;http://www.w3.org/2000/svg&quot;</span><span class="ot"> xmlns:xlink=</span><span class="st">&quot;http://www.w3.org/1999/xlink&quot;</span><span class="kw">&gt;</span></code></pre></div>
+<p>It's important to note that the <code>&lt;?xml ?&gt;</code> line is not required when embedding the SVG into an HTML document <a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a>.</p>
+<pre><code>Well-formed XML documents contain only one prolog. So they should be
+removed if you are embedding one SVG inside another.</code></pre>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="http://alistapart.com/article/a-pixel-identity-crisis" class="uri">http://alistapart.com/article/a-pixel-identity-crisis</a><a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p><a href="http://developer.android.com/guide/practices/screens_support.html#density-independence" class="uri">http://developer.android.com/guide/practices/screens_support.html#density-independence</a><a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p><a href="http://www.smashingmagazine.com/2015/05/05/form-inputs-browser-support-issue/" class="uri">http://www.smashingmagazine.com/2015/05/05/form-inputs-browser-support-issue/</a><a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p><a href="http://www.smashingmagazine.com/2015/05/05/form-inputs-browser-support-issue/" class="uri">http://www.smashingmagazine.com/2015/05/05/form-inputs-browser-support-issue/</a><a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p><a href="http://coreygoldberg.blogspot.com/2015/04/linux-simulating-degraded-network.html" class="uri">http://coreygoldberg.blogspot.com/2015/04/linux-simulating-degraded-network.html</a><a href="#fnref5">↩</a></p></li>
+<li id="fn6"><p><a href="http://stackoverflow.com/a/27414586/465270" class="uri">http://stackoverflow.com/a/27414586/465270</a><a href="#fnref6">↩</a></p></li>
+</ol>
+</div>
+
+</body>
+</html>
