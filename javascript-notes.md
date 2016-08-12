@@ -382,6 +382,84 @@ omitted, it should default to ["require", "exports", "module"].
 ```
 [^12]
 
+## ES6 Modules
+
+```
+with cyclic dependencies, you can’t access imports in the body of the module. 
+```
+[^13]
+
+ECMAScript 6 provides the following ways of importing [4]:
+
+Imports:
+
+``` javascript
+// Default exports and named exports
+import theDefault, { named1, named2 } from 'src/mylib';
+import theDefault from 'src/mylib';
+import { named1, named2 } from 'src/mylib';
+
+// Renaming: import named1 as myNamed1
+import { named1 as myNamed1, named2 } from 'src/mylib';
+
+// Importing the module as an object
+// (with one property per named export)
+import * as mylib from 'src/mylib';
+
+// Only load the module, don’t import anything
+import 'src/mylib';
+```
+
+Exports:
+``` javascript
+export var myVar1 = ...;
+export let myVar2 = ...;
+export const MY_CONST = ...;
+
+export function myFunc() {
+    ...
+}
+export function* myGeneratorFunc() {
+    ...
+}
+export class MyClass {
+    ...
+}
+```
+
+
+```
+you can list everything you want to export at the end of the module
+(which is once again similar in style to the revealing module
+pattern).
+
+    const MY_CONST = ...;
+    function myFunc() {
+        ...
+    }
+    
+    export { MY_CONST, myFunc };
+
+You can also export things under different names:
+
+    export { MY_CONST as THE_CONST, myFunc as theFunc };
+
+```
+
+```
+System.import() enables you to:
+
+Use modules inside <script> elements (where module syntax is not supported, consult Sect. “Further information” for details).
+Load modules conditionally.
+System.import() retrieves a single module, you can use Promise.all() to import several modules:
+
+    Promise.all(
+        ['module1', 'module2', 'module3']
+        .map(x => System.import(x)))
+    .then(([module1, module2, module3]) => {
+        // Use module1, module2, module3
+    });
+```
 
 
 # Nodejs
@@ -744,3 +822,5 @@ More notes located in hacking/learning-backbone/index.html
 [^11]: <http://stackoverflow.com/questions/31382489/es6-hash-array-index-function-call-mixed-syntax>
 
 [^12]: <http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition>
+
+[^13]: <http://www.2ality.com/2014/09/es6-modules-final.html>

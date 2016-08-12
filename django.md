@@ -1,3 +1,11 @@
+## urlencode
+
+### Email
+
+```html
+<a href="mailto:{{ email|urlencode:"@" }}
+```
+
 ## Counting Things
 
 ``` python
