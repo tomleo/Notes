@@ -737,7 +737,61 @@ JavaScript linting tools like eslint are handy in catching these issues.
 
 
 # Backbone.js
+
+
 ## Models
+
+### Class Methods
+> Backbone accepts class methods as the second argument when extending
+> any of its classes -- []()
+
+``` javascript
+var Car = Backbone.Model.extend({
+  // instance methods
+
+}, {
+  // class methods
+
+  manufacturersByCountry: function(country) {
+    // custom logic to query manufacturers
+  }
+});
+```
+
+### Overriding core methods
+
+Similar to calling `super` of a method in python:
+
+``` javascript
+var Car = Backbone.Model.extend({
+    initialize: function() {
+        // my custom stuff
+        // ..
+        // ..
+
+        Backbone.View.prototype.initialize.call(this);
+    }
+});
+```
+
+This will copy the sync functionality with the current context:
+
+``` javascript
+sync: function () {
+  return Backbone.sync.apply(this, arguments);
+}
+```
+
+Actually calls the parent/prototype method:
+
+``` javascript
+var Note = Backbone.Model.extend({
+  set: function (attributes, options) {
+    Backbone.Model.prototype.set.apply(this, arguments);
+    ...
+  }
+});
+```
 
 ### Listen to events from Model
 
@@ -762,7 +816,17 @@ Backbone.Marionette.LayoutView.extend({
 });
 ```
 
+
 ## Views
+
+> During runtime, the Backbone.View's constructor calls initialize and
+> expects the user to implement some logic there to eventually render
+> the view. More on constructors later. -- [](http://chrisawren.com/posts/Learning-Advanced-JavaScript-via-the-Backbone-js-source-code)
+
+
+> Avoid calling the render method for every single model that is being added
+> `this.listenTo(this.collection, ‘add’, _.debounce(_.bind(this.render), 128))`
+> -- ()[https://www.toptal.com/backbone-js/top-8-common-backbone-js-developer-mistakes]
 
 ### Rendering
 
@@ -795,6 +859,16 @@ view.setElement(button2);
 
 More notes located in hacking/learning-backbone/index.html
 
+
+
+
+## Plugins
+    
+- [rendrjs/rendr](https://github.com/rendrjs/rendr): Render your Backbone.js apps on the client and the server, using Node.js
+- [rotundasoftware/backbone.subviews](https://github.com/rotundasoftware/backbone.subviews): minimalist view mixin for creating and managing subviews
+- []()
+
+## Patterns
 
 
 
