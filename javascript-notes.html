@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>javascript-notes.html</title>
+
+</head>
+
+<body>
+
+<h1 id="language">Language</h1>
+<p>use strict mode in javascript ## Type</p>
+<p>typeof will always return &quot;object&quot; for native non callable objects.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="op">&gt;&gt;</span> [<span class="kw">typeof</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span> <span class="kw">instanceof</span> Object]
+[<span class="st">&quot;object&quot;</span><span class="op">,</span> <span class="kw">false</span>]</code></pre></div>
+<p>the + operator has higher precedence than the ternary one</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="op">&gt;&gt;</span> <span class="kw">var</span> val <span class="op">=</span> <span class="st">&#39;smtg&#39;</span><span class="op">;</span>
+<span class="op">&gt;&gt;</span> <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;Value is &#39;</span> <span class="op">+</span> (val <span class="op">===</span> <span class="st">&#39;smtg&#39;</span>) <span class="op">?</span> <span class="st">&#39;Something&#39;</span> : <span class="st">&#39;Nothing&#39;</span>)<span class="op">;</span>
+Something </code></pre></div>
+<p>The + sign concatenates strings, the - sign causes a type cast</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="op">&gt;&gt;</span> <span class="st">&#39;5&#39;</span> <span class="op">+</span> <span class="dv">3</span>
+<span class="st">&quot;53&quot;</span>
+<span class="op">&gt;&gt;</span> <span class="st">&#39;5&#39;</span> <span class="op">-</span> <span class="dv">3</span>
+<span class="dv">2</span></code></pre></div>
+<h3 id="comparison">Comparison</h3>
+<p><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Objects evaluate to true</span>
+<span class="cf">if</span>( <span class="op">{}</span> ) <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Really?&quot;</span>)<span class="op">;</span> <span class="co">// =&gt; Really?</span>
+<span class="op">}</span> 
+
+<span class="at">Boolean</span>([]) <span class="op">=&gt;</span> <span class="kw">true</span>
+<span class="at">Boolean</span>(<span class="op">{}</span>) <span class="op">=&gt;</span> <span class="kw">true</span>
+<span class="at">Boolean</span>(<span class="kw">null</span><span class="op">,</span> <span class="kw">NaN</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="st">&#39;&#39;</span><span class="op">,</span> <span class="kw">undefined</span>) <span class="op">=&gt;</span> <span class="kw">false</span></code></pre></div>
+<h2 id="scope">Scope</h2>
+<p>The var declaration is hoisted to the function scope, but the initialization is not.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> name <span class="op">=</span> <span class="st">&#39;World!&#39;</span><span class="op">;</span>
+(<span class="kw">function</span> () <span class="op">{</span>
+    <span class="cf">if</span> (<span class="kw">typeof</span> name <span class="op">===</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span>
+        <span class="kw">var</span> name <span class="op">=</span> <span class="st">&#39;Jack&#39;</span><span class="op">;</span>
+        <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;Goodbye &#39;</span> <span class="op">+</span> name)<span class="op">;</span>
+    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+        <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;Hello &#39;</span> <span class="op">+</span> name)<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>)()<span class="op">;</span>
+Goodbye Jack</code></pre></div>
+<p>Local vs. Global Functions, y is an automatic global, not a function local one like x</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">(<span class="kw">function</span>()<span class="op">{</span>
+  <span class="kw">var</span> x <span class="op">=</span> y <span class="op">=</span> <span class="dv">1</span><span class="op">;</span>
+<span class="op">}</span>)()<span class="op">;</span>
+<span class="va">console</span>.<span class="at">log</span>(y)<span class="op">;</span>
+<span class="va">console</span>.<span class="at">log</span>(x)<span class="op">;</span>
+<span class="dv">1</span>
+RefereceError<span class="op">:</span> x is not defined</code></pre></div>
+<h2 id="hoisting">Hoisting</h2>
+<p>Variable declarations get hoisted to the top of their scope, their assignment does not <a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">example</span>() <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(declaredButNotAssigned)<span class="op">;</span> <span class="co">// =&gt; undefined</span>
+    <span class="kw">var</span> declaredButNotAssigned <span class="op">=</span> <span class="kw">true</span><span class="op">;</span>
+<span class="op">}</span>
+
+<span class="kw">function</span> <span class="at">example</span>() <span class="op">{</span>
+    <span class="kw">var</span> declaredButNotAssigned<span class="op">;</span>
+    <span class="va">console</span>.<span class="at">log</span>(declaredButNotAssigned)<span class="op">;</span> <span class="co">// =&gt; undefined</span>
+    declaredButNotAssigned <span class="op">=</span> <span class="kw">true</span><span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+<p>Anonymouse function expressions hoist their variable name, but not the function assignment</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">example</span>() <span class="op">{</span>
+  <span class="va">console</span>.<span class="at">log</span>(anonymous)<span class="op">;</span> <span class="co">// =&gt; undefined</span>
+
+  <span class="at">anonymous</span>()<span class="op">;</span> <span class="co">// =&gt; TypeError anonymous is not a function</span>
+
+  <span class="kw">var</span> anonymous <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;anonymous function expression&#39;</span>)<span class="op">;</span>
+  <span class="op">};</span>
+<span class="op">}</span>
+
+
+<span class="kw">function</span> <span class="at">example</span>() <span class="op">{</span>
+  <span class="va">console</span>.<span class="at">log</span>(named)<span class="op">;</span> <span class="co">// =&gt; undefined</span>
+
+  <span class="at">named</span>()<span class="op">;</span> <span class="co">// =&gt; TypeError named is not a function</span>
+
+  <span class="at">superPower</span>()<span class="op">;</span> <span class="co">// =&gt; ReferenceError superPower is not defined</span>
+
+  <span class="kw">var</span> named <span class="op">=</span> <span class="kw">function</span> <span class="at">superPower</span>() <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;Flying&#39;</span>)<span class="op">;</span>
+  <span class="op">};</span>
+<span class="op">}</span>
+
+<span class="co">// the same is true when the function name</span>
+<span class="co">// is the same as the variable name.</span>
+<span class="kw">function</span> <span class="at">example</span>() <span class="op">{</span>
+  <span class="va">console</span>.<span class="at">log</span>(named)<span class="op">;</span> <span class="co">// =&gt; undefined</span>
+
+  <span class="at">named</span>()<span class="op">;</span> <span class="co">// =&gt; TypeError named is not a function</span>
+
+  <span class="kw">var</span> named <span class="op">=</span> <span class="kw">function</span> <span class="at">named</span>() <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;named&#39;</span>)<span class="op">;</span>
+  <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
+<p>Function declarations hoist their name and function body</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">example</span>() <span class="op">{</span>
+  <span class="at">superPower</span>()<span class="op">;</span> <span class="co">// =&gt; Flying</span>
+
+  <span class="kw">function</span> <span class="at">superPower</span>() <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;Flying&#39;</span>)<span class="op">;</span>
+  <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
+<h2 id="switch-statement">Switch Statement</h2>
+<p>switch uses === internally and new String(x) !== x</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">showCase</span>(value) <span class="op">{</span>
+    <span class="cf">switch</span>(value) <span class="op">{</span>
+    <span class="cf">case</span> <span class="st">&#39;A&#39;</span><span class="op">:</span>
+        <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;Case A&#39;</span>)<span class="op">;</span>
+        <span class="cf">break</span><span class="op">;</span>
+    <span class="cf">case</span> <span class="st">&#39;B&#39;</span><span class="op">:</span>
+        <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;Case B&#39;</span>)<span class="op">;</span>
+        <span class="cf">break</span><span class="op">;</span>
+    <span class="cf">case</span> <span class="dt">undefined</span><span class="op">:</span>
+        <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;undefined&#39;</span>)<span class="op">;</span>
+        <span class="cf">break</span><span class="op">;</span>
+    <span class="dt">default</span><span class="op">:</span>
+        <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;Do not know!&#39;</span>)<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>
+<span class="at">showCase</span>(<span class="kw">new</span> <span class="at">String</span>(<span class="st">&#39;A&#39;</span>))<span class="op">;</span>
+Do not know<span class="op">!</span></code></pre></div>
+<h2 id="how-to-define-functions-and-objects-in-js">How to define functions and objects in JS</h2>
+<p>To create an object you can use Object.create function or simply write the function explicitly like below.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">myMethod</span>() <span class="op">{</span> <span class="cf">return</span> <span class="kw">this</span>.<span class="at">val</span><span class="op">;</span> <span class="op">}</span>
+<span class="kw">var</span> object1 <span class="op">=</span> <span class="op">{</span>
+    <span class="dt">get</span><span class="op">:</span> myMethod<span class="op">,</span>
+    <span class="dt">val</span><span class="op">:</span> <span class="dv">42</span>
+<span class="op">};</span>
+<span class="kw">var</span> object2 <span class="op">=</span> <span class="op">{</span>
+    <span class="dt">get</span><span class="op">:</span> myMethod<span class="op">,</span>
+    <span class="dt">val</span><span class="op">:</span> <span class="fl">3.14159</span>
+<span class="op">};</span>
+<span class="kw">var</span> object3 <span class="op">=</span> <span class="op">{</span>
+    <span class="dt">get</span><span class="op">:</span> <span class="va">myMethod</span>.<span class="at">call</span>()<span class="op">,</span>
+    <span class="dt">val</span><span class="op">:</span> <span class="dv">42</span>
+<span class="op">};</span></code></pre></div>
+<pre class="console"><code>&gt;&gt;&gt; this.object1
+Object { val=42, get=myMethod()}
+&gt;&gt;&gt; this.object2
+Object { val=3.14159, get=myMethod()}
+&gt;&gt;&gt; this.object3
+Object { val=42}</code></pre>
+<p>It should be noted that name is a read only property for example</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">foo</span>() <span class="op">{</span> <span class="op">}</span>
+<span class="kw">var</span> oldName <span class="op">=</span> <span class="va">foo</span>.<span class="at">name</span><span class="op">;</span>
+<span class="va">foo</span>.<span class="at">name</span> <span class="op">=</span> <span class="st">&quot;bar&quot;</span><span class="op">;</span>
+[oldName<span class="op">,</span> <span class="va">foo</span>.<span class="at">name</span>]
+[<span class="st">&quot;foo&quot;</span><span class="op">,</span> <span class="st">&quot;foo&quot;</span>]</code></pre></div>
+<h2 id="prototypal-inheritance">Prototypal Inheritance</h2>
+<p>When looking for attributes JS will go up the inheritance chain until it finds what it is looking for. The Object.create(obj) is a way to create an object based on obj prototype.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> parent <span class="op">=</span> <span class="op">{</span>
+    <span class="dt">get</span><span class="op">:</span> <span class="kw">function</span> <span class="at">fn</span>() <span class="op">{</span>
+        <span class="cf">return</span> <span class="kw">this</span>.<span class="at">val</span><span class="op">;</span>
+    <span class="op">},</span>
+    <span class="dt">val</span><span class="op">:</span> <span class="dv">42</span>
+<span class="op">};</span>
+<span class="kw">var</span> child <span class="op">=</span> <span class="va">Object</span>.<span class="at">create</span>(parent)<span class="op">;</span>
+<span class="va">child</span>.<span class="at">val</span> <span class="op">=</span> <span class="dv">25</span><span class="op">;</span>
+
+<span class="kw">var</span> grandchild <span class="op">=</span> <span class="va">Object</span>.<span class="at">create</span>(child)<span class="op">;</span></code></pre></div>
+<pre class="console"><code>&gt;&gt;&gt; parent.get();
+42 //parent.get() -&gt; fn() which looks for -&gt; this.val=42
+
+&gt;&gt;&gt; child.get();
+25 //child.get() does not exist so looks in parent for get -&gt; parent.get()
+   //which looks for this.val=25
+
+&gt;&gt;&gt; grandchild.get();
+25 //grandchild.get() does not exist so looks in child for get -&gt; child.get()
+   //does not exist so looks in parent for get -&gt; parent.get() which looks for
+   //this.val which does not exist so looks for child.get=25</code></pre>
+<p>The following code example evaluates to false</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">f</span>() <span class="op">{}</span>
+<span class="kw">var</span> a <span class="op">=</span> <span class="va">f</span>.<span class="at">prototype</span><span class="op">,</span> b <span class="op">=</span> <span class="va">Object</span>.<span class="at">getPrototypeOf</span>(f)<span class="op">;</span>
+a <span class="op">===</span> b</code></pre></div>
+<p>This is because f.prototype is the object that will become the parent of any objects created with new f while Object.getPrototypeOf returns the parent in the inheritance hierarchy.</p>
+<h2 id="polymorphism">Polymorphism</h2>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> answer <span class="op">=</span> <span class="op">{</span>
+    <span class="dt">get</span><span class="op">:</span> <span class="kw">function</span> <span class="at">fn1</span>() <span class="op">{</span>
+        <span class="cf">return</span> <span class="kw">this</span>.<span class="at">val</span><span class="op">;</span>
+    <span class="op">},</span>
+    <span class="dt">val</span><span class="op">:</span> <span class="dv">42</span>
+<span class="op">};</span>
+
+<span class="kw">var</span> firmAnswer <span class="op">=</span> <span class="va">Object</span>.<span class="at">create</span>(answer)<span class="op">;</span>
+<span class="va">firmAnswer</span>.<span class="at">get</span> <span class="op">=</span> <span class="kw">function</span> <span class="at">fn2</span>() <span class="op">{</span>
+    <span class="cf">return</span> <span class="kw">this</span>.<span class="at">val</span> <span class="op">+</span> <span class="st">&quot;!!&quot;</span><span class="op">;</span>
+<span class="op">};</span></code></pre></div>
+<pre class="console"><code>&gt;&gt;&gt; answer.get();
+42
+&gt;&gt;&gt; firmAnswer.get();
+&quot;42!!&quot;</code></pre>
+<h2 id="getting-the-this-right-or...-getting-the-right-this">Getting the this right or... getting the right this</h2>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> hello <span class="op">=</span> <span class="op">{</span>
+    <span class="dt">get</span><span class="op">:</span> <span class="kw">function</span> <span class="at">fn1</span>() <span class="op">{</span>
+        <span class="cf">return</span> <span class="kw">this</span>.<span class="at">val</span><span class="op">;</span>
+    <span class="op">},</span>
+    <span class="dt">val</span><span class="op">:</span> <span class="st">&quot;Hello&quot;</span>
+<span class="op">};</span>
+
+<span class="kw">var</span> helloWorld <span class="op">=</span> <span class="va">Object</span>.<span class="at">create</span>(hello)<span class="op">;</span>
+<span class="va">helloWorld</span>.<span class="at">get</span> <span class="op">=</span> <span class="kw">function</span> <span class="at">fn2</span>() <span class="op">{</span>
+    <span class="cf">return</span> <span class="va">hello</span>.<span class="at">get</span>() <span class="op">+</span> <span class="st">&quot; World&quot;</span><span class="op">;</span>
+<span class="op">};</span>
+<span class="va">helloWorld</span>.<span class="at">val</span> 
+
+<span class="kw">var</span> goodByeWorld <span class="op">=</span> <span class="va">Object</span>.<span class="at">create</span>(hello)<span class="op">;</span>
+<span class="va">goodByeWorld</span>.<span class="at">get</span> <span class="op">=</span> <span class="kw">function</span> <span class="at">fn2</span>() <span class="op">{</span>
+    <span class="cf">return</span> <span class="va">hello</span>.<span class="va">get</span>.<span class="at">call</span>(<span class="kw">this</span>) <span class="op">+</span> <span class="st">&quot; World&quot;</span><span class="op">;</span>
+<span class="va">goodByeWorld</span>.<span class="at">val</span> <span class="op">=</span> <span class="st">&quot;Goodbye&quot;</span><span class="op">;</span></code></pre></div>
+<pre class="console"><code>&gt;&gt;&gt; helloWorld.get()
+&quot;Hello World&quot;
+&gt;&gt;&gt; goodByeWorld.get()
+&quot;Goodbye World&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// variables referencing &quot;this&quot; should be named _this</span>
+<span class="kw">function</span>() <span class="op">{</span>
+  <span class="kw">var</span> _this <span class="op">=</span> <span class="kw">this</span><span class="op">;</span>
+  <span class="cf">return</span> <span class="kw">function</span>() <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(_this)<span class="op">;</span>
+  <span class="op">};</span>
+<span class="op">}</span></code></pre></div>
+<h2 id="using-constructors">Using Constructors</h2>
+<p>Instead of defining a class' variables you can pass variables to a constructor.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> helloPrototype <span class="op">=</span> <span class="op">{</span>
+    <span class="dt">constructor</span><span class="op">:</span> <span class="kw">function</span> <span class="at">fn0</span>(val) <span class="op">{</span>
+        <span class="kw">this</span>.<span class="at">_val</span> <span class="op">=</span> val<span class="op">;</span>
+    <span class="op">},</span>
+    <span class="dt">get</span><span class="op">:</span> <span class="kw">function</span> <span class="at">fun1</span>() <span class="op">{</span>
+        <span class="cf">return</span> <span class="kw">this</span>.<span class="at">_val</span><span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">};</span>
+
+<span class="kw">var</span> helloWorldPrototype <span class="op">=</span> <span class="va">Object</span>.<span class="at">create</span>(helloPrototype)<span class="op">;</span>
+<span class="va">helloWorldPrototype</span>.<span class="at">get</span> <span class="op">=</span> <span class="kw">function</span> <span class="at">fn2</span>() <span class="op">{</span>
+    <span class="cf">return</span> <span class="va">helloPrototype</span>.<span class="va">get</span>.<span class="at">call</span>(<span class="kw">this</span>) <span class="op">=</span> <span class="st">&quot;World&quot;</span><span class="op">;</span>
+<span class="op">};</span></code></pre></div>
+<pre class="console"><code>var hello = Object.create(helloPrototype);
+helloWorld.constructor(&quot;Hello&quot;);
+helloWorld.get();
+
+var helloWorld = Object.create(helloWorldPrototype);
+helloWorld.constructor(&quot;Hello&quot;);
+helloWorld.get();</code></pre>
+<h2 id="arrays">Arrays</h2>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> x <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span>]<span class="op">;</span> <span class="co">//ERROR</span>
+<span class="kw">var</span> y <span class="op">=</span> <span class="op">{</span><span class="st">&#39;a&#39;</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="st">&#39;b&#39;</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="st">&#39;c&#39;</span><span class="op">:</span> <span class="dv">3</span><span class="op">,};</span> <span class="co">//ERROR</span></code></pre></div>
+<p>If, when defining an array or an object, you leave a trailing comma after the last item in your collection, IE will fail to parse your javascript file: # Modules ## Asynchronous Definition</p>
+<pre class="note"><code>Default implies optional</code></pre>
+<p><code>define(id?, dependencies?, factory);</code></p>
+<p>id: id of the module being defined (default: to the id of the module that the loader was requesting)</p>
+<p>dependencies: an array of the dependencies that are required by the module that is being defined</p>
+<pre><code>resolved prior to execution of the module factory function, and the resolved
+values should be passed as arguments to the factory function with argument
+positions corresponding to index in the dependencies array. The dependencies
+ids may be relative ids, and should be resolved relative the module being
+defined. 
+
+If the value of &quot;require&quot;, &quot;exports&quot;, or &quot;module&quot; appear in the dependency
+list, the argument should be resolved to the corresponding free variable as
+defined by the CommonJS modules specification. This argument is optional. If
+omitted, it should default to [&quot;require&quot;, &quot;exports&quot;, &quot;module&quot;].</code></pre>
+<p><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
+<h2 id="es6-modules">ES6 Modules</h2>
+<pre><code>with cyclic dependencies, you can’t access imports in the body of the module. </code></pre>
+<p><a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
+<p>ECMAScript 6 provides the following ways of importing [4]:</p>
+<p>Imports:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Default exports and named exports</span>
+<span class="im">import</span> theDefault<span class="op">,</span> <span class="op">{</span> named1<span class="op">,</span> named2 <span class="op">}</span> <span class="im">from</span> <span class="st">&#39;src/mylib&#39;</span><span class="op">;</span>
+<span class="im">import</span> theDefault <span class="im">from</span> <span class="st">&#39;src/mylib&#39;</span><span class="op">;</span>
+<span class="im">import</span> <span class="op">{</span> named1<span class="op">,</span> named2 <span class="op">}</span> <span class="im">from</span> <span class="st">&#39;src/mylib&#39;</span><span class="op">;</span>
+
+<span class="co">// Renaming: import named1 as myNamed1</span>
+<span class="im">import</span> <span class="op">{</span> named1 <span class="im">as</span> myNamed1<span class="op">,</span> named2 <span class="op">}</span> <span class="im">from</span> <span class="st">&#39;src/mylib&#39;</span><span class="op">;</span>
+
+<span class="co">// Importing the module as an object</span>
+<span class="co">// (with one property per named export)</span>
+<span class="im">import</span> <span class="op">*</span> <span class="im">as</span> mylib <span class="im">from</span> <span class="st">&#39;src/mylib&#39;</span><span class="op">;</span>
+
+<span class="co">// Only load the module, don’t import anything</span>
+<span class="im">import</span> <span class="st">&#39;src/mylib&#39;</span><span class="op">;</span></code></pre></div>
+<p>Exports:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">export</span> <span class="kw">var</span> myVar1 <span class="op">=</span> ...<span class="op">;</span>
+<span class="im">export</span> <span class="kw">let</span> myVar2 <span class="op">=</span> ...<span class="op">;</span>
+<span class="im">export</span> <span class="kw">const</span> MY_CONST <span class="op">=</span> ...<span class="op">;</span>
+
+<span class="im">export</span> <span class="kw">function</span> <span class="at">myFunc</span>() <span class="op">{</span>
+    ...
+<span class="op">}</span>
+<span class="im">export</span> <span class="kw">function</span><span class="op">*</span> <span class="at">myGeneratorFunc</span>() <span class="op">{</span>
+    ...
+<span class="op">}</span>
+<span class="im">export</span> <span class="kw">class</span> MyClass <span class="op">{</span>
+    ...
+<span class="op">}</span></code></pre></div>
+<pre><code>you can list everything you want to export at the end of the module
+(which is once again similar in style to the revealing module
+pattern).
+
+    const MY_CONST = ...;
+    function myFunc() {
+        ...
+    }
+    
+    export { MY_CONST, myFunc };
+
+You can also export things under different names:
+
+    export { MY_CONST as THE_CONST, myFunc as theFunc };
+</code></pre>
+<pre><code>System.import() enables you to:
+
+Use modules inside &lt;script&gt; elements (where module syntax is not supported, consult Sect. “Further information” for details).
+Load modules conditionally.
+System.import() retrieves a single module, you can use Promise.all() to import several modules:
+
+    Promise.all(
+        [&#39;module1&#39;, &#39;module2&#39;, &#39;module3&#39;]
+        .map(x =&gt; System.import(x)))
+    .then(([module1, module2, module3]) =&gt; {
+        // Use module1, module2, module3
+    });</code></pre>
+<h1 id="nodejs">Nodejs</h1>
+<h2 id="node-virtual-machine">Node virtual machine</h2>
+<p>https://github.com/creationix/nvm</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>in practice, I've found nvm confusing to use. I docker container may be a better way to go</p>
+</blockquote>
+<p>Left off at 15:00 <a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a></p>
+<h2 id="installing-node">Installing Node</h2>
+<p>curl -sL <a href="https://deb.nodesource.com/setup" class="uri">https://deb.nodesource.com/setup</a> | sudo bash -sudo apt-get install -y nodejs</p>
+<h2 id="io">IO</h2>
+<p>All synchronous (or blocking) filesystem methods in the fs module end with 'Sync'.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// return a Buffer object containing the complete contents of the file</span>
+<span class="va">fs</span>.<span class="at">readFileSync</span>(<span class="st">&#39;/path/to/file&#39;</span>)</code></pre></div>
+<p>Buffer objects are Node's way of efficiently representing arbitrary arrays of data, whether it be ascii, binary or some other format. Buffer objects can be converted to strings by simply calling the toString() method on them.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> str <span class="op">=</span> <span class="va">buf</span>.<span class="at">toString</span>().</code></pre></div>
+<h1 id="design-patterns">Design Patterns</h1>
+<h2 id="iife-immediately-invoked-function-expression">IIFE (Immediately-Invoked Function Expression)</h2>
+<p><a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a></p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// good (guards against the function becoming an argument when two files with IIFEs are concatenated)</span>
+<span class="op">;</span>(<span class="kw">function</span>() <span class="op">{</span>
+  <span class="kw">var</span> name <span class="op">=</span> <span class="st">&#39;Skywalker&#39;</span><span class="op">;</span>
+  <span class="cf">return</span> name<span class="op">;</span>
+<span class="op">}</span>)()<span class="op">;</span></code></pre></div>
+<h2 id="shifting-of-classes">Shifting of classes</h2>
+<p>If you are going to be adding/removing classes of an element you should cache them.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> navright <span class="op">=</span> <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;#right&#39;</span>)<span class="op">;</span>
+<span class="kw">var</span> navleft <span class="op">=</span> <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;#left&#39;</span>)<span class="op">;</span>
+<span class="kw">var</span> navup <span class="op">=</span> <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;#up&#39;</span>)<span class="op">;</span>
+<span class="kw">var</span> navdown <span class="op">=</span> <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;#down&#39;</span>)<span class="op">;</span></code></pre></div>
+<p>Furthermore if you are going to be adding a class to indicate some styling state of an element you should do the following <a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a></p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> current <span class="op">=</span> <span class="kw">null</span><span class="op">;</span>
+<span class="va">document</span>.<span class="va">body</span>.<span class="at">addEventListener</span>(<span class="st">&#39;click&#39;</span><span class="op">,</span> <span class="kw">function</span>(ev) <span class="op">{</span>
+    <span class="cf">if</span> (<span class="va">ev</span>.<span class="va">target</span>.<span class="at">tagName</span> <span class="op">===</span> <span class="st">&#39;BUTTON&#39;</span>) <span class="op">{</span>
+        <span class="cf">if</span> (current) <span class="op">{</span>
+            <span class="va">current</span>.<span class="va">classList</span>.<span class="at">remove</span>(<span class="st">&#39;focus&#39;</span>)<span class="op">;</span>
+        <span class="op">}</span>
+        current <span class="op">=</span> <span class="va">ev</span>.<span class="at">target</span><span class="op">;</span>
+        <span class="va">current</span>.<span class="va">classList</span>.<span class="at">add</span>(<span class="st">&#39;focus&#39;</span>)<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">},</span> <span class="kw">false</span>)<span class="op">;</span></code></pre></div>
+<h2 id="module-pattern">Module pattern</h2>
+<p>This pattern allows for public and private variables as well as public and private methods via a function closure. <a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a></p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> myNamespace <span class="op">=</span> (<span class="kw">function</span> () <span class="op">{</span>
+
+  <span class="kw">var</span> myPrivateVar<span class="op">,</span> myPrivateMethod<span class="op">;</span>
+
+  <span class="co">// A private counter variable</span>
+  myPrivateVar <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>
+
+  <span class="co">// A private function which logs any arguments</span>
+  myPrivateMethod <span class="op">=</span> <span class="kw">function</span>( foo ) <span class="op">{</span>
+      <span class="va">console</span>.<span class="at">log</span>( foo )<span class="op">;</span>
+  <span class="op">};</span>
+
+  <span class="cf">return</span> <span class="op">{</span>
+
+    <span class="co">// A public variable</span>
+    <span class="dt">myPublicVar</span><span class="op">:</span> <span class="st">&quot;foo&quot;</span><span class="op">,</span>
+
+    <span class="co">// A public function utilizing privates</span>
+    <span class="dt">myPublicFunction</span><span class="op">:</span> <span class="kw">function</span>( bar ) <span class="op">{</span>
+
+      <span class="co">// Increment our private counter</span>
+      myPrivateVar<span class="op">++;</span>
+
+      <span class="co">// Call our private method using bar</span>
+      <span class="at">myPrivateMethod</span>( bar )<span class="op">;</span>
+
+    <span class="op">}</span>
+  <span class="op">};</span>
+
+<span class="op">}</span>)()<span class="op">;</span></code></pre></div>
+<h2 id="naming-functions">Naming Functions</h2>
+<p>Naming your functions results in easier to read stack traces</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> log <span class="op">=</span> <span class="kw">function</span> <span class="at">log</span>(msg) <span class="op">{</span>
+  <span class="va">console</span>.<span class="at">log</span>(msg)<span class="op">;</span>
+<span class="op">};</span></code></pre></div>
+<h2 id="method-chaining">Method Chaining</h2>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">Jedi</span>.<span class="va">prototype</span>.<span class="at">jump</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+
+<span class="op">:</span>   <span class="kw">this</span>.<span class="at">jumping</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span> <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>
+
+<span class="op">};</span>
+
+<span class="va">Jedi</span>.<span class="va">prototype</span>.<span class="at">setHeight</span> <span class="op">=</span> <span class="kw">function</span>(height) <span class="op">{</span>
+
+<span class="op">:</span>   <span class="kw">this</span>.<span class="at">height</span> <span class="op">=</span> height<span class="op">;</span> <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>
+
+<span class="op">};</span>
+
+<span class="kw">var</span> luke <span class="op">=</span> <span class="kw">new</span> <span class="at">Jedi</span>()<span class="op">;</span> <span class="va">luke</span>.<span class="at">jump</span>().<span class="at">setHeight</span>(<span class="dv">20</span>)<span class="op">;</span></code></pre></div>
+<h2 id="feature-detection">Feature Detection</h2>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Dependency Testing</span>
+<span class="co">// via Quo vadis, JavaScript? Devday.pl keynote by Christian Heilmann</span>
+<span class="cf">if</span> (<span class="st">&#39;visibilityState&#39;</span> <span class="kw">in</span> document) <span class="op">{</span>
+    <span class="co">// Modern browser. Let&#39;s load JavaScript</span>
+    <span class="cf">if</span> (<span class="st">&#39;serviceWorker&#39;</span> <span class="kw">in</span> navigator) <span class="op">{</span>
+        <span class="co">// Let&#39;s add offline support</span>
+        <span class="va">navigator</span>.<span class="va">serviceWorker</span>.<span class="at">register</span>(<span class="st">&#39;sw.js&#39;</span><span class="op">,</span> <span class="op">{</span>
+            <span class="dt">scope</span><span class="op">:</span> <span class="st">&#39;./&#39;</span>
+        <span class="op">}</span>)<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
+<h2 id="promise">Promise</h2>
+<p>Promise <a href="http://taoofcode.net/promise-anti-patterns/">Anit-patterns</a></p>
+<h2 id="jquery">jQuery</h2>
+<p>All jQuery Ajax methods return Deferred objects, and then provides a single callback. <a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a></p>
+<h2 id="rxjs">RxJS</h2>
+<p>JavaScript is multithreaded so don’t need to worry about shared state running through different threads. <a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a></p>
+<p>Traversing a stream is semantically equivalent as subscribing to it</p>
+<h1 id="es6">ES6</h1>
+<h2 id="method-definitions">method definitions</h2>
+<p>example via <a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a></p>
+<pre class="es5"><code>var obj = {
+    foo: function() {}
+}</code></pre>
+<pre class="es6"><code>var obj = {
+    foo() {}
+};</code></pre>
+<h2 id="computed-properties">computed properties</h2>
+<p>example via <a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a></p>
+<pre class="es5"><code>var foo=&#39;someName&#39;;
+var obj = {};
+obj[foo] = 42;</code></pre>
+<pre class="es6"><code>var foo=&#39;someName&#39;;
+var obj = {
+    [foo]: 42
+};
+
+//method definition using computed properties
+var obj = {
+    [foo]() {}
+};</code></pre>
+<h2 id="destructuring">destructuring</h2>
+<p>example via <a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a></p>
+<pre class="es5"><code>function foo(obj) {
+    var username = obj.username;
+    var res = obj.res;
+}</code></pre>
+<pre class="es6"><code>function foo({username, res}) {}</code></pre>
+<h2 id="method-definitions-1">Method Definitions</h2>
+<p>I sometimes unintentionally write JS like this</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">
+object_name <span class="op">{</span>
+    <span class="at">method_name</span>(arg) <span class="op">{}</span>
+<span class="op">}</span></code></pre></div>
+<p>instead of</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">
+object_name <span class="op">{</span>
+    <span class="dt">method_name</span><span class="op">:</span> <span class="kw">function</span>(arg) <span class="op">{}</span>
+<span class="op">}</span></code></pre></div>
+<p>Here's an example of this in action http://codepen.io/tomleo/pen/QEVwBz</p>
+<p>The issue with this &quot;syntax error&quot; is that it's actually <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Method_definitions">valid ES6 syntax</a> and won't throw an error when developing in Chrome or Firefox. However it's not supported in IE or Safari. It also causes yuglify to choke during deployment.</p>
+<p>JavaScript linting tools like eslint are handy in catching these issues.</p>
+<h1 id="backbone.js">Backbone.js</h1>
+<h2 id="models">Models</h2>
+<h3 id="listen-to-events-from-model">Listen to events from Model</h3>
+<pre class="es5"><code>Backbone.Model.extend({
+    foo: function(bar) {
+        this.save({
+            a: 1,
+            b: 2
+        });
+        return {&#39;hello&#39;: &#39;world&#39;};
+    }
+});
+
+Backbone.Marionette.LayoutView.extend({
+    initialize: function() {
+        this.listenTo(this.model, &#39;foo&#39;, this.handleFoo);
+    },
+    handleFoo: function(obj) {
+        console.log(obj) // {&#39;hello&#39;: &#39;world&#39;}
+    }
+});</code></pre>
+<h2 id="views">Views</h2>
+<h3 id="rendering">Rendering</h3>
+<p>To create elements not attached to the DOM:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">Backbone</span>.<span class="va">View</span>.<span class="at">extend</span>(<span class="op">{</span>
+    <span class="dt">tagName</span><span class="op">:</span> <span class="st">&#39;li&#39;</span><span class="op">,</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>To create elements with container already in the DOM:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">Backbone</span>.<span class="va">View</span>.<span class="at">extend</span>(<span class="op">{</span>
+    <span class="dt">el</span><span class="op">:</span> <span class="st">&#39;#propertyList&#39;</span><span class="op">,</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<h3 id="setelement">setElement</h3>
+<p><code>setElement</code> will create a cached <code>$el</code> reference for you, moving the delegated events for a view from the old element to the new one.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> button1 <span class="op">=</span> <span class="at">$</span>(<span class="st">&#39;&lt;button&gt;&lt;/button&gt;&#39;</span>)<span class="op">;</span>
+<span class="kw">var</span> button2 <span class="op">=</span> <span class="at">$</span>(<span class="st">&#39;&lt;button&gt;&lt;/button&gt;&#39;</span>)<span class="op">;</span>
+<span class="kw">var</span> view <span class="op">=</span> <span class="kw">new</span> <span class="at">View</span>(<span class="op">{</span><span class="dt">el</span><span class="op">:</span> button1<span class="op">}</span>)<span class="op">;</span>
+<span class="va">view</span>.<span class="at">setElement</span>(button2)<span class="op">;</span></code></pre></div>
+<p>More notes located in hacking/learning-backbone/index.html</p>
+<h1 id="ref">Ref</h1>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="https://javascriptweblog.wordpress.com/2011/02/07/truth-equality-and-javascript/#more-2108" class="uri">https://javascriptweblog.wordpress.com/2011/02/07/truth-equality-and-javascript/#more-2108</a><a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p><a href="http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html" class="uri">http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html</a><a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p><a href="http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition" class="uri">http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition</a><a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p><a href="http://www.2ality.com/2014/09/es6-modules-final.html" class="uri">http://www.2ality.com/2014/09/es6-modules-final.html</a><a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p><a href="http://www.objectplayground.com/" class="uri">http://www.objectplayground.com/</a><a href="#fnref5">↩</a></p></li>
+<li id="fn6"><p><a href="http://stackoverflow.com/questions/7365172/semicolon-before-self-invoking-function/7365214#7365214" class="uri">http://stackoverflow.com/questions/7365172/semicolon-before-self-invoking-function/7365214#7365214</a><a href="#fnref6">↩</a></p></li>
+<li id="fn7"><p><a href="http://jsfiddle.net/codepo8/cb7pG/3/light/" class="uri">http://jsfiddle.net/codepo8/cb7pG/3/light/</a><a href="#fnref7">↩</a></p></li>
+<li id="fn8"><p><a href="http://addyosmani.com/resources/essentialjsdesignpatterns/book/#modulepatternjavascript" class="uri">http://addyosmani.com/resources/essentialjsdesignpatterns/book/#modulepatternjavascript</a><a href="#fnref8">↩</a></p></li>
+<li id="fn9"><p><a href="http://css-tricks.com/multiple-simultaneous-ajax-requests-one-callback-jquery/" class="uri">http://css-tricks.com/multiple-simultaneous-ajax-requests-one-callback-jquery/</a><a href="#fnref9">↩</a></p></li>
+<li id="fn10"><p>RxJS in Action by Paul P. Daniels<a href="#fnref10">↩</a></p></li>
+<li id="fn11"><p><a href="http://stackoverflow.com/questions/31382489/es6-hash-array-index-function-call-mixed-syntax" class="uri">http://stackoverflow.com/questions/31382489/es6-hash-array-index-function-call-mixed-syntax</a><a href="#fnref11">↩</a></p></li>
+<li id="fn12"><p><a href="http://stackoverflow.com/questions/31382489/es6-hash-array-index-function-call-mixed-syntax" class="uri">http://stackoverflow.com/questions/31382489/es6-hash-array-index-function-call-mixed-syntax</a><a href="#fnref12">↩</a></p></li>
+<li id="fn13"><p><a href="http://stackoverflow.com/questions/31382489/es6-hash-array-index-function-call-mixed-syntax" class="uri">http://stackoverflow.com/questions/31382489/es6-hash-array-index-function-call-mixed-syntax</a><a href="#fnref13">↩</a></p></li>
+</ol>
+</div>
+
+</body>
+</html>
