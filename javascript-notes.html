@@ -487,6 +487,42 @@ object_name <span class="op">{</span>
 <p>JavaScript linting tools like eslint are handy in catching these issues.</p>
 <h1 id="backbone.js">Backbone.js</h1>
 <h2 id="models">Models</h2>
+<h3 id="class-methods">Class Methods</h3>
+<blockquote>
+<p>Backbone accepts class methods as the second argument when extending any of its classes -- <a href=""></a></p>
+</blockquote>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> Car <span class="op">=</span> <span class="va">Backbone</span>.<span class="va">Model</span>.<span class="at">extend</span>(<span class="op">{</span>
+  <span class="co">// instance methods</span>
+
+<span class="op">},</span> <span class="op">{</span>
+  <span class="co">// class methods</span>
+
+  <span class="dt">manufacturersByCountry</span><span class="op">:</span> <span class="kw">function</span>(country) <span class="op">{</span>
+    <span class="co">// custom logic to query manufacturers</span>
+  <span class="op">}</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<h3 id="overriding-core-methods">Overriding core methods</h3>
+<p>Similar to calling <code>super</code> of a method in python:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> Car <span class="op">=</span> <span class="va">Backbone</span>.<span class="va">Model</span>.<span class="at">extend</span>(<span class="op">{</span>
+    <span class="dt">initialize</span><span class="op">:</span> <span class="kw">function</span>() <span class="op">{</span>
+        <span class="co">// my custom stuff</span>
+        <span class="co">// ..</span>
+        <span class="co">// ..</span>
+
+        <span class="va">Backbone</span>.<span class="va">View</span>.<span class="va">prototype</span>.<span class="va">initialize</span>.<span class="at">call</span>(<span class="kw">this</span>)<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>This will copy the sync functionality with the current context:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">sync<span class="op">:</span> <span class="kw">function</span> () <span class="op">{</span>
+  <span class="cf">return</span> <span class="va">Backbone</span>.<span class="va">sync</span>.<span class="at">apply</span>(<span class="kw">this</span><span class="op">,</span> arguments)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+<p>Actually calls the parent/prototype method:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> Note <span class="op">=</span> <span class="va">Backbone</span>.<span class="va">Model</span>.<span class="at">extend</span>(<span class="op">{</span>
+  <span class="dt">set</span><span class="op">:</span> <span class="kw">function</span> (attributes<span class="op">,</span> options) <span class="op">{</span>
+    <span class="va">Backbone</span>.<span class="va">Model</span>.<span class="va">prototype</span>.<span class="va">set</span>.<span class="at">apply</span>(<span class="kw">this</span><span class="op">,</span> arguments)<span class="op">;</span>
+    ...
+  <span class="op">}</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <h3 id="listen-to-events-from-model">Listen to events from Model</h3>
 <pre class="es5"><code>Backbone.Model.extend({
     foo: function(bar) {
@@ -507,6 +543,12 @@ Backbone.Marionette.LayoutView.extend({
     }
 });</code></pre>
 <h2 id="views">Views</h2>
+<blockquote>
+<p>During runtime, the Backbone.View's constructor calls initialize and expects the user to implement some logic there to eventually render the view. More on constructors later. -- <a href="http://chrisawren.com/posts/Learning-Advanced-JavaScript-via-the-Backbone-js-source-code"></a></p>
+</blockquote>
+<blockquote>
+<p>Avoid calling the render method for every single model that is being added <code>this.listenTo(this.collection, ‘add’, _.debounce(_.bind(this.render), 128))</code> -- ()[https://www.toptal.com/backbone-js/top-8-common-backbone-js-developer-mistakes]</p>
+</blockquote>
 <h3 id="rendering">Rendering</h3>
 <p>To create elements not attached to the DOM:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">Backbone</span>.<span class="va">View</span>.<span class="at">extend</span>(<span class="op">{</span>
@@ -523,6 +565,13 @@ Backbone.Marionette.LayoutView.extend({
 <span class="kw">var</span> view <span class="op">=</span> <span class="kw">new</span> <span class="at">View</span>(<span class="op">{</span><span class="dt">el</span><span class="op">:</span> button1<span class="op">}</span>)<span class="op">;</span>
 <span class="va">view</span>.<span class="at">setElement</span>(button2)<span class="op">;</span></code></pre></div>
 <p>More notes located in hacking/learning-backbone/index.html</p>
+<h2 id="plugins">Plugins</h2>
+<ul>
+<li><a href="https://github.com/rendrjs/rendr">rendrjs/rendr</a>: Render your Backbone.js apps on the client and the server, using Node.js</li>
+<li><a href="https://github.com/rotundasoftware/backbone.subviews">rotundasoftware/backbone.subviews</a>: minimalist view mixin for creating and managing subviews</li>
+<li><a href=""></a></li>
+</ul>
+<h2 id="patterns">Patterns</h2>
 <h1 id="ref">Ref</h1>
 <div class="footnotes">
 <hr />
